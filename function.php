@@ -4,7 +4,6 @@ function debug($var)
     highlight_string("<?php\n" . var_export($var, true) . ";\n?>");
 }
 
-
 //fonction pour afficher les 10 derniers articles
 function productsindex(PDO $connectionBDD)
 {
