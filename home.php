@@ -29,7 +29,7 @@ $description = 'le culte de la biere';
             <div class="card-body">
                 <h5 class="card-title "><?php echo $product['name']; ?></h5>
                 <p class="card-text"><?php echo $product['description']; ?></p>
-                <a href="product.php?id=<?php echo $product['id']; ?>"
+                <a href="index.php?page=products&id=<?php echo $product['id']; ?>"
                    class="btn btn-secondary"><?php echo $product['price']; ?></a>
             </div>
             </div>
