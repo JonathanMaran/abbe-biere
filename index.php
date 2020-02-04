@@ -10,7 +10,7 @@ if(!isset($_GET['page'])){
 //je cree un tableau avec chaque route
 $root=[
     'home'=> 'home.php',
-    'products' => 'Produits',
+    'products' => 'product.php',
 ];
 
 
