@@ -30,4 +30,4 @@ if (isset($road[$page])){
 include $include_page.'.php';
 
 //j'inclus le layout
-include 'layout.php';
+include 'header.php';
