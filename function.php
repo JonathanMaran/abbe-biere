@@ -8,11 +8,11 @@ function debug($var)
 //fonction pour afficher les 10 derniers articles
 function productsindex(PDO $connectionBDD)
 {
-    $reponse = $connectionBDD->query('
+    $querryhome = $connectionBDD->query('
 SELECT *
 FROM products
 ORDER BY id DESC 
 LIMIT 10 ');
-    $donnes = $reponse->fetchAll();
+    $donnes = $querryhome->fetchAll();
     return $donnes;
 }
