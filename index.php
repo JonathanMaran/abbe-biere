@@ -1,33 +1,28 @@
 <?php
-include 'pdo.php';
-include 'function.php';
 
 //je verifie si le tableau $_GET['page'] existe et je filtre
 if(!isset($_GET['page'])){
-    $page='acceuil';
-} elseif(isset($_GET['page'])){
+    $page='home';
+} elseif(!empty($_GET['page'])){
     $page=filter_input(INPUT_GET,'page',FILTER_SANITIZE_STRING);
 }
 
 //je cree un tableau avec chaque route
-$road=[
-    'home'=> 'home',
+$root=[
+    'home'=> 'home.php',
     'products' => 'Produits',
-    '404'=>'404'
 ];
 
 
 //je redirige vers la page
 $include_page=null;
 
-if (isset($road[$page])){
-    $include_page=$road[$page];
+if (isset($root[$page])){
+    $include_page=$root[$page];
 } else {
-    $include_page=$road['404'];
+    $include_page='404';
 }
 
-//j'inclus la page
-include $include_page.'.php';
-
-//j'inclus le layout
 include 'header.php';
+include $root[$page];
+include 'footer.php';
