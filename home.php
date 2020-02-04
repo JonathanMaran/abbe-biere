@@ -1,11 +1,8 @@
 <?php
-include 'function.php';
-include 'pdo.php';
-include 'config.php';
-$description= 'le culte de la biere';
+$description = 'le culte de la biere';
 
 
-$products=productsindex($BDD);
+$products = productsindex($BDD);
 
 foreach ($products as $product) {
     ?>
