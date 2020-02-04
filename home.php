@@ -12,7 +12,7 @@ $description= 'le culte de la biere';
 <?php $products=productsindex($BDD);
 
         foreach ($products as $product) {
-            ?><div class="card text-center  shadow p-3 mb-5 bg-light" style="width: 18rem;">
+            ?><div class="card text-center  shadow p-3 mb-5 bg-li" style="width: 18rem;">
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title "><?php echo $product['name']; ?></h5>
