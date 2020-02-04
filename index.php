@@ -12,6 +12,7 @@ if(!isset($_GET['page'])){
 //je cree un tableau avec chaque route
 $road=[
     'home'=> 'home',
+    'products' => 'Produits',
     '404'=>'404'
 ];
 
