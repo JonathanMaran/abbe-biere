@@ -1,8 +1,8 @@
 <footer>
     <div class="container ">
-        <div class="container bg-info">
+        <div class="container bg-warning">
             <div class="row">
-                <div class="col-12 col-lg-8">
+                <div class="col-12">
                     <div class="row">
                         <p class="col-4 text-center"><a href="mailto:contact@le-campus-numerique.fr"
                                                         class="text-dark"><img
@@ -15,9 +15,6 @@
                             04
                             75 78 61 33</p>
                     </div>
-                </div>
-                <div class="d-none col-lg-4 d-lg-block text-center">
-                    <img src="lunettes.png" alt="lunettes d'harry potter" width="120" height="60">
                 </div>
             </div>
         </div>

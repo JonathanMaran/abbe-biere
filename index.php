@@ -1,31 +1,29 @@
 <?php
-include 'pdo.php';
-include 'function.php';
-include 'header.php';
 
-$products = derniersproduits($bdd);
-
-foreach ($products as $ligne) {
-    echo '<div class="container">
-             <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                     <h5 class="card-title">' . $ligne['name'] . ' </h5>
-                     <p class="card-text">' . $ligne['description'] . ' </p>
-                     <p class="card-text">' . $ligne['price'] . ' euros pour ' . $ligne['volume'] . 'cl </p>
-                     <a href="#" class="btn btn-primary">En savoir plus</a>
-                    </div>
-             </div>
-           </div>';
+//je verifie si le tableau $_GET['page'] existe et je filtre
+if(!isset($_GET['page'])){
+    $page='home';
+} elseif(!empty($_GET['page'])){
+    $page=filter_input(INPUT_GET,'page',FILTER_SANITIZE_STRING);
 }
 
-?>
+//je cree un tableau avec chaque route
+$root=[
+    'home'=> 'home.php',
+    'products' => 'product.php',
+];
 
 
-<?php
+//je redirige vers la page
+$include_page=null;
+
+if (isset($root[$page])){
+    $include_page=$root[$page];
+} else {
+    $include_page='404';
+}
+
+
+include 'header.php';
+include $root[$page];
 include 'footer.php';
-?>
-
-
-
-
