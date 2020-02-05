@@ -6,87 +6,81 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css.css">
-    <title><?php echo $include_page ?></title>
-    <meta name="description" content="<?php $description ?>">
+
+    <title><?php
+        if (isset($title)){
+            echo $title;
+        }
+        else {
+            echo 'Mon site';
+        }
+        ?></title>
+
+
+    <meta name="description" content="<?php
+    if (isset($description)){
+        echo $description;
+    }
+    else{
+        echo 'Bonjour, bienvenue sur le site de Maxime Silva, futur Développeur Web.';
+    }
+    ?>" />
+
 </head>
 
-<body>
-<header>
-    <div class="container">
-        <div class="align-items-center bg-warning">
-            <div class="col-lg-12 text-center h1 ">
-                L'abbé bière
-            </div>
+<body class="bg-dark">
 
-            <div class="col-lg-12 text-center">
-                Le culte de la bière
+<header class="bg-warning">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 text-center h1">
+                Maxime Silva
             </div>
         </div>
-        <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item <?php if ($include_page == "home") {
-                        ?>active<?php
-                    } ?>">
-                        <a class="nav-link" href="index.php?page=home">Accueil<span class="sr-only ">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item <?php if ($page_a_inclure == "products") {
-                        ?>active<?php
-                    } ?>">
-                        <a class="nav-link" href="index.php?page=products">Produits<span
-                                    class="sr-only ">(current)</span>
-                        </a>
-
-                    </li>
-                    <li class="nav-item <?php if ($page_a_inclure == "pitch") {
-                        ?>active<?php
-                    } ?>">
-                        <a class="nav-link" href="index.php?page=pitch">*<span
-                                    class="sr-only ">(current)</span> </a>
-                    </li>
-                    <li class="nav-item <?php if ($page_a_inclure == "contact") {
-                        ?>active<?php
-                    } ?>">
-                        <a class="nav-link" href="index.php?page=contact">*<span class="sr-only ">(current)</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-        </nav>
     </div>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+
+                <?php
+                foreach ($tableau as $ligne) {
+                    echo '<li class="nav-item active">
+                        <a class="nav-link" href="index.php?page=' . $ligne['url'] . '">' . $ligne['titre'] . '<span class="sr-only ">(current)</span> </a>
+                    </li>';
+                }
+                ?>
+            </ul>
+        </div>
+    </nav>
 </header>
 
-<footer>
-    <div class="container ">
-        <div class="container bg-warning">
-            <div class="row">
-                <div class="col-12">
-                    <div class="row">
-                        <p class="col-4 text-center"><a href="mailto:contact@le-campus-numerique.fr"
-                                                        class="text-dark"><img
-                                        src="mail.png" width="30" height="30" title="mail" alt="mail"><br>
-                                contact@le-campus-numerique.fr</a>
-                        </p>
-                        <p class="col-4 text-center"><img src="adresse.png" alt="lieu" width="30" height="30"/><br>
-                            33 Grande Rue,26000 valence</p>
-                        <p class="col-4 text-center"><img src="tel.png" alt="tel" width="30" height="30"><br>
-                            04
-                            75 78 61 33</p>
-                    </div>
+<footer class="bg-warning">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row mt-2">
+                    <p class="col-4 text-center"><a href="mailto:contact@le-campus-numerique.fr"
+                                                    class="text-dark"><img src="contenu/mail.png" width="30" height="30" title="mail"
+                                                                           alt="mail"><br>
+                            contact@le-campus-numerique.fr</a>
+                    </p>
+                    <p class="col-4 text-center"><img src="contenu/adresse.png" alt="lieu" width="30" height="30" /><br>
+                        33 Grande Rue,26000 valence</p>
+                    <p class="col-4 text-center"><img src="contenu/tel.png" alt="tel" width="30" height="30"><br>
+                        04 75 78 61 33</p>
                 </div>
             </div>
         </div>
     </div>
+
 </footer>
 
 <!-- Optional JavaScript -->

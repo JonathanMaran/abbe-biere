@@ -1,17 +1,19 @@
 <?php
-$description = 'le culte de la biere';
-
 
 $products = productsindex($BDD);
-
-        foreach ($products as $product) {
-            ?>
-            <a href="product.php?id=<?php echo $product['id']; ?>"><h2><?php echo $product['name']; ?></h2></a>
-            <p><?php echo $product['description']; ?></p>
-
-            <p><?php echo $product['price']; ?></p>
-            <?php
-        } ?>
+?>
+<div class="row col-8">
+<?php foreach ($products as $ligne) : ?>
+    <div class="card mx-auto mb-2 text-center align-items-center" style="width: 18rem">
+        <img src="/photos/<?= $ligne['photo_link']?>.jpeg" alt="photo de <?= $ligne['photo_link']?>" class="card-img-top">
+        <div class="card-body">
+        <a href="product.php?id=<?= $ligne['id']; ?>"><h2><?= $ligne['name']; ?></h2></a>
+        <p><?= $ligne['description']; ?></p>
+            <p><?= $ligne['price']; ?> €</p>
+        </div>
+    </div>
+<?php endforeach; ?>
+</div>
 
 
 

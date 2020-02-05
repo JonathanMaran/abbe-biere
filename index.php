@@ -8,31 +8,38 @@ require 'config.php';
 require 'pdo.php';
 require 'function.php';
 
-//je verifie si le tableau $_GET['page'] existe et je filtre
-if (!isset($_GET['page'])) {
-    $page = 'acceuil';
-} elseif (isset($_GET['page'])) {
-    $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
-}
-
-//je cree un tableau avec chaque route
-$road = [
-    'home' => 'home',
+/* ------- routeur -------- */
+$route = [
+    '' => 'Accueil',
     'products' => 'Produits',
 ];
+$description = 'le culte de la biere';
+$valeurpage = '';
 
 
-//je redirige vers la page
-$include_page = null;
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
 
-if (isset($road[$page])) {
-    $include_page = $road[$page];
+    if (isset($route[$page])) {
+        $valeurpage = $route[$page];
+    } else {
+        $valeurpage = '404';
+    }
 } else {
-    $include_page = '404';
+    $valeurpage = 'Accueil';
 }
 
-//j'inclus la page
-require $include_page . '.php';
-
+$tableau = [
+    [
+        'titre' => 'Accueil',
+        'url' => '',
+    ],
+    [
+        'titre' => 'Produits',
+        'url' => 'products',
+    ],
+];
 //j'inclus le layout
-require 'layout.php';
+require 'header.php';
+require 'home.php';
+require 'footer.php';
