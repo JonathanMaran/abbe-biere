@@ -38,12 +38,24 @@
                     } ?>">
                         <a class="nav-link" href="index.php?page=home">Accueil<span class="sr-only ">(current)</span> </a>
                     </li>
-                    <li class="nav-item <?php if ($include_page == "products") {
+                    <li class="nav-item <?php if ($page_a_inclure == "products") {
                         ?>active<?php
                     } ?>">
                         <a class="nav-link" href="index.php?page=products">Produits<span class="sr-only ">(current)</span>
                         </a>
 
+                    </li>
+                    <li class="nav-item <?php if ($page_a_inclure == "pitch") {
+                        ?>active<?php
+                    } ?>">
+                        <a class="nav-link" href="index.php?page=pitch">*<span
+                                class="sr-only ">(current)</span> </a>
+                    </li>
+                    <li class="nav-item <?php if ($page_a_inclure == "contact") {
+                        ?>active<?php
+                    } ?>">
+                        <a class="nav-link" href="index.php?page=contact">*<span class="sr-only ">(current)</span>
+                        </a>
                     </li>
 
                 </ul>
@@ -51,5 +63,4 @@
         </nav>
     </div>
 </header>
-
 
