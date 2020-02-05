@@ -25,7 +25,7 @@ $tva=calcul_tva($view_product['price']);
 ?>
 
 <!-- main product -->
-<main>
+<main style="min-height: calc(100vh - 136px - 65px)">
     <div class="container">
         <div class="col-12 text-center">
             <!-- titre -->

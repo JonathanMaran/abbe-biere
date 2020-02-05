@@ -38,11 +38,20 @@
                     } ?>">
                         <a class="nav-link" href="index.php?page=home">Accueil<span class="sr-only ">(current)</span> </a>
                     </li>
-                    <li class="nav-item <?php if ($include_page == "products") {
-                        ?>active<?php
-                    } ?>">
-                        <a class="nav-link" href="index.php?page=products">Produits<span class="sr-only ">(current)</span>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Catégorie
                         </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="categories.php?categorie=blonde">Blonde</a>
+                            <a class="dropdown-item" href="categories.php?categorie=blanche">Blanche</a>
+                            <a class="dropdown-item" href="categories.php?categorie=brune">Brune</a>
+                            <a class="dropdown-item" href="categories.php?categorie=ambree">Ambrée</a>
+                            <a class="dropdown-item" href="categories.php?categorie=rosee">Rosée</a>
+                            <a class="dropdown-item" href="categories.php?categorie=rubis">Rubis</a>
+                        </div>
+                    </li>
 
                     </li>
 
