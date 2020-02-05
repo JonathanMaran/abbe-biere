@@ -24,7 +24,7 @@ $description = 'le culte de la biere';
         foreach ($products as $product) {
             echo '       
                 <div class="card col-3 text-center shadow p-3 mb-5 " style="width: 16.5rem;">
-                    <img src="/photos/' . $product['photo_link'] . '.jpeg" class="card-img-top" alt="' . $product['photo_link'] . '">
+                    <a href="index.php?page=products&id=' . $product['id'] . '"><img src="/photos/' . $product['photo_link'] . '.jpeg" class="card-img-top" alt="' . $product['photo_link'] . '"></a>
                     <div class="card-body">
                         <h5 class="card-title "><a href="index.php?page=products&id=' . $product['id'] . '">' . $product['name'] . '</a> </h5>
                         <p class="card-text">' . $product['description'] . '</p>
