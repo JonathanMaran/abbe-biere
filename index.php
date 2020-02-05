@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 //je verifie si le tableau $_GET['page'] existe et je filtre
 if(!isset($_GET['page'])){
     $page='home';
@@ -10,6 +10,7 @@ if(!isset($_GET['page'])){
 //je cree un tableau avec chaque route
 $root=[
     'home'=> 'home.php',
+    'categorie'=> 'categorie.php',
     'products' => 'product.php',
 ];
 
@@ -22,6 +23,7 @@ if (isset($root[$page])){
 } else {
     $include_page='404';
 }
+session_start();
 
 
 include 'header.php';

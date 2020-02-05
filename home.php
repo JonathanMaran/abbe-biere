@@ -7,6 +7,7 @@ include 'pdo.php';
 include 'config.php';
 
 //variable description pour meta description
+$titre='accueil';
 $description = 'le culte de la biere';
 ?>
 

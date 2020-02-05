@@ -9,8 +9,10 @@ include 'config.php';
 if (isset($_GET['id'])) {
     if (!empty($_GET['id'])) {
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+    }else{
+        $id = find_last_id($BDD);
     }
-
+debug($_GET);
 
     //sinon j'afficher par defaut le dernier produit rentre
 } else {
