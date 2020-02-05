@@ -48,7 +48,7 @@ $tva=calcul_tva($view_product['price']);
                         </div>
                         <div class="col-6">
                             <a href=".."
-                               class="btn btn-secondary">Ajouter au pannier</a>
+                               class="btn btn-secondary">Ajouter au panier</a>
                         </div>
                     </div>
                 </div>

@@ -44,7 +44,7 @@ function view_product(PDO $bdd, int $id)
 //calcul tva
 function calcul_tva(float $price)
 {
-    $tva = $price /1.2;
+    $tva = $price *0.2;
     round($tva,2);
     return $tva;
 }
