@@ -63,7 +63,7 @@
         </nav>
     </div>
 </header>
-
+<? include 'home.php';?>
 <footer>
     <div class="container ">
         <div class="container bg-warning">
