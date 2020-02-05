@@ -13,7 +13,7 @@ if (isset($_GET['categorie'])){
 
 //je recupere la categorie a afiicher
 $categories=categorieview($BDD,$categorie);
-debug($categories);
+debug($_SESSION);
 ?>
 <main>
     <div class="container">

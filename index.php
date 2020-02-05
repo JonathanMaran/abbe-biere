@@ -1,18 +1,36 @@
 <?php
 session_start();
-//je verifie si le tableau $_GET['page'] existe et je filtre
-if(!isset($_GET['page'])){
-    $page='home';
-} elseif(!empty($_GET['page'])){
-    $page=filter_input(INPUT_GET,'page',FILTER_SANITIZE_STRING);
+if (!isset($_SESSION['panier'])){
+    $_SESSION['panier']=array();
+    $_SESSION['panier']['idProduit'] = array();
+    $_SESSION['panier']['qteProduit'] = array();
 }
 
-//je cree un tableau avec chaque route
+
+//je verifie si le tableau $_GET['page'] existe et je filtre
+if(isset($_GET['page'])){
+    $page=filter_input(INPUT_GET,'page',FILTER_SANITIZE_STRING);
+} elseif(empty($_GET['page'])){
+    $page='home';
+} else{
+    $page='home';
+}
+
+// tableau avec chaque route
 $root=[
-    'home'=> 'home.php',
-    'categorie'=> 'categorie.php',
-    'products' => 'product.php',
+    'home'=> 'home',
+    'categorie'=> 'categorie',
+    'products' => 'product',
 ];
+
+// tableau avec chaque description
+$description=[
+    'home'=> 'ceci est notre super site de ventre de biere',
+    'categorie'=> 'vous trouverez ici toutes nos bieres rangées par categorie',
+    'products'=>'le produit dans tout ces états',
+];
+
+
 
 
 //je redirige vers la page
@@ -23,9 +41,9 @@ if (isset($root[$page])){
 } else {
     $include_page='404';
 }
-session_start();
+
 
 
 include 'header.php';
-include $root[$page];
+include $include_page.'.php';
 include 'footer.php';

@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css.css">
-    <title><?php echo $titre ?></title>
-<meta name="description" content="<?php $description ?>">
+    <title><?= $page ?></title>
+<meta name="description" content="<?= $page?>">
 </head>
 
 <body>
@@ -44,12 +44,12 @@
                             Catégorie
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="index.php?categorie=blonde">Blonde</a>
-                            <a class="dropdown-item" href="index.php?categorie=blanche">Blanche</a>
-                            <a class="dropdown-item" href="index.php?categorie=brune">Brune</a>
-                            <a class="dropdown-item" href="index.php?categorie=ambree">Ambrée</a>
-                            <a class="dropdown-item" href="index.php?categorie=rosee">Rosée</a>
-                            <a class="dropdown-item" href="index.php?categorie=rubis">Rubis</a>
+                            <a class="dropdown-item" href="index.php?page=categorie&cat=blonde">Blonde</a>
+                            <a class="dropdown-item" href="index.php?page=categorie&cat==blanche">Blanche</a>
+                            <a class="dropdown-item" href="index.php?page=categorie&cat==brune">Brune</a>
+                            <a class="dropdown-item" href="index.php?page=categorie&cat==ambree">Ambrée</a>
+                            <a class="dropdown-item" href="index.php?page=categorie&cat==rosee">Rosée</a>
+                            <a class="dropdown-item" href="index.php?page=categorie&cat==rubis">Rubis</a>
                         </div>
                     </li>
 

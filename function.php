@@ -63,21 +63,13 @@ function categorieview(PDO $BDD, string $categorie)
     return $querycategorieview;
 }
 
-function creationPanier(){
-    if (!isset($_SESSION['panier'])){
-        $_SESSION['panier']=array();
-        $_SESSION['panier']['idProduit'] = array();
-        $_SESSION['panier']['qteProduit'] = array();
-    }
-    return true;
-}
-function ajouterArticle($libelleProduit,$qteProduit,$prixProduit){
 
+function ajouterArticle(string $idProduit,int $qteProduit)
+{
     //Si le panier existe
-    if (creationPanier())
-    {
+    if (isset ($_SESSION['panier'])){
         //Si le produit existe déjà on ajoute seulement la quantité
-        $positionProduit = array_search($libelleProduit,  $_SESSION['panier']['libelleProduit']);
+        $positionProduit = array_search($idProduit,  $_SESSION['panier']['idProduit']);
 
         if ($positionProduit !== false)
         {
@@ -86,9 +78,8 @@ function ajouterArticle($libelleProduit,$qteProduit,$prixProduit){
         else
         {
             //Sinon on ajoute le produit
-            array_push( $_SESSION['panier']['libelleProduit'],$libelleProduit);
+            array_push( $_SESSION['panier']['idProduit'],$idProduit);
             array_push( $_SESSION['panier']['qteProduit'],$qteProduit);
-            array_push( $_SESSION['panier']['prixProduit'],$prixProduit);
         }
     }
     else
