@@ -44,8 +44,22 @@ function view_product(PDO $bdd, int $id)
 //calcul tva
 function calcul_tva(float $price)
 {
-    $tva = $price *0.2;
-    round($tva,2);
+    $tva = $price * 0.2;
+    round($tva, 2);
     return $tva;
+}
+
+//categories a afficher
+function categorieview(PDO $BDD, string $categorie)
+{
+    $querycategorieview = $BDD->prepare('
+    SELECT *
+    FROM products
+    INNER JOIN categories ON categories.id=category_id
+    WHERE categories.name= :categorie');
+    $querycategorieview->bindparam(':categorie', $categorie, PDO::PARAM_STR);
+    $querycategorieview->execute();
+    $querycategorieview->fetchAll();
+    return $querycategorieview;
 }
 
