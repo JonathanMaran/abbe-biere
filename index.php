@@ -1,32 +1,31 @@
 <?php
 include 'pdo.php';
 include 'function.php';
+include 'header.php';
 
-//je verifie si le tableau $_GET['page'] existe et je filtre
-if(!isset($_GET['page'])){
-    $page='acceuil';
-} elseif(isset($_GET['page'])){
-    $page=filter_input(INPUT_GET,'page',FILTER_SANITIZE_STRING);
+$products = derniersproduits($bdd);
+
+foreach ($products as $ligne) {
+    echo '<div class="container">
+             <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                     <h5 class="card-title">' . $ligne['name'] . ' </h5>
+                     <p class="card-text">' . $ligne['description'] . ' </p>
+                     <p class="card-text">' . $ligne['price'] . ' euros pour ' . $ligne['volume'] . 'cl </p>
+                     <a href="#" class="btn btn-primary">En savoir plus</a>
+                    </div>
+             </div>
+           </div>';
 }
 
-//je cree un tableau avec chaque route
-$road=[
-    'home'=> 'home',
-    '404'=>'404'
-];
+?>
 
 
-//je redirige vers la page
-$include_page=null;
+<?php
+include 'footer.php';
+?>
 
-if (isset($road[$page])){
-    $include_page=$road[$page];
-} else {
-    $include_page=$road['404'];
-}
 
-//j'inclus la page
-include $include_page.'.php';
 
-//j'inclus le layout
-include 'layout.php';
+
