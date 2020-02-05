@@ -34,7 +34,7 @@ $tva=calcul_tva($view_product['price']);
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 text-center">
-                    <img src="..." alt="photo de biere" class="m-2" height="300em"
+                    <img src="/photos/<?=$view_product['photo_link']?>.jpeg" alt="<?= $view_product['photo_link']?>" class="m-2" height="300em"
                          id="phototitre">
                 </div>
 
@@ -43,7 +43,7 @@ $tva=calcul_tva($view_product['price']);
                     <div class="row align-items-center"
                     <div class="col-md-6 text-center h4">
                         <div class="col-6">
-                            <?= $view_product['price'] ?><br>
+                            <?= $view_product['price'] ?> €<br>
                             dont tva <?=$tva?> €
                         </div>
                         <div class="col-6">

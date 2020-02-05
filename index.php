@@ -23,6 +23,7 @@ if (isset($root[$page])){
     $include_page='404';
 }
 
+
 include 'header.php';
 include $root[$page];
 include 'footer.php';
