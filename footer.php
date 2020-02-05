@@ -1,21 +1,24 @@
-<footer class="bg-warning">
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="row mt-2">
-                <p class="col-4 text-center"><a href="mailto:contact@le-campus-numerique.fr"
-                                                class="text-dark"><img src="contenu/mail.png" width="30" height="30" title="mail"
-                                                                       alt="mail"><br>
-                        contact@le-campus-numerique.fr</a>
-                </p>
-                <p class="col-4 text-center"><img src="contenu/adresse.png" alt="lieu" width="30" height="30" /><br>
-                    33 Grande Rue,26000 valence</p>
-                <p class="col-4 text-center"><img src="contenu/tel.png" alt="tel" width="30" height="30"><br>
-                    04 75 78 61 33</p>
+<footer>
+    <div class="container ">
+        <div class="container bg-warning">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <p class="col-4 text-center"><a href="mailto:contact@le-campus-numerique.fr"
+                                                        class="text-dark"><img
+                                    src="mail.png" width="30" height="30" title="mail" alt="mail"><br>
+                                contact@le-campus-numerique.fr</a>
+                        </p>
+                        <p class="col-4 text-center"><img src="adresse.png" alt="lieu" width="30" height="30"/><br>
+                            33 Grande Rue,26000 valence</p>
+                        <p class="col-4 text-center"><img src="tel.png" alt="tel" width="30" height="30"><br>
+                            04
+                            75 78 61 33</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </footer>
 
 <!-- Optional JavaScript -->

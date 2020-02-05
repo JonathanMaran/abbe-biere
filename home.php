@@ -1,20 +1,42 @@
 <?php
 
-$products = productsindex($BDD);
+//j inclus toutesles pages dont j'ai besoin
+
+include 'function.php';
+include 'pdo.php';
+include 'config.php';
+
+//variable description pour meta description
+$description = 'le culte de la biere';
 ?>
-<div class="row col-8">
-<?php foreach ($products as $ligne) : ?>
-    <div class="card mx-auto mb-2 text-center align-items-center" style="width: 18rem">
-        <img src="/photos/<?= $ligne['photo_link']?>.jpeg" alt="photo de <?= $ligne['photo_link']?>" class="card-img-top">
-        <div class="card-body">
-        <a href="product.php?id=<?= $ligne['id']; ?>"><h2><?= $ligne['name']; ?></h2></a>
-        <p><?= $ligne['description']; ?></p>
-            <p><?= $ligne['price']; ?> €</p>
+
+<!-- main home-->
+<main>
+    <div class="container">
+        <div class="col-12 text-center">
+
+            <!-- titre -->
+            <h2>Les derniers produits</h2>
         </div>
-    </div>
-<?php endforeach; ?>
+<div class="row col-12 ">
+        <!-- affichage des derniers produits -->
+        <?php $products = productsindex($BDD);
+        foreach ($products as $product) {
+            echo '       
+                <div class="card col-3 text-center shadow p-3 mb-5 " style="width: 16.5rem;">
+                    <img src="/photos/' . $product['photo_link'] . '.jpeg" class="card-img-top" alt="' . $product['photo_link'] . '">
+                    <div class="card-body">
+                        <h5 class="card-title "><a href="index.php?page=products&id=' . $product['id'] . '">' . $product['name'] . '</a> </h5>
+                        <p class="card-text">' . $product['description'] . '</p>
+                        <a href="index.php?page=products&id=' . $product['id'] . '"
+                           class="btn btn-secondary">' . $product['price'] . ' €</a>
+                    </div>
+                </div>';
+
+
+        } ?>
 </div>
-
-
+    </div>
+</main>
 
 
