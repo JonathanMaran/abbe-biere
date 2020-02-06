@@ -79,7 +79,6 @@ function addtocart(int $idProduit, int $qteProduit)
     if (isset($_SESSION['panier'][$idProduit])) {
         $_SESSION['panier'][$idProduit] += $qteProduit;
     } else {
-        $_SESSION['panier']['id'] = $idProduit;
         $_SESSION['panier'][$idProduit] = $qteProduit;
     }
 }
