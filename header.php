@@ -24,12 +24,12 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav navbar-left">
                         <li class="nav-item <?php if ($include_page == "home.php") {
                             ?>active<?php
                         } ?>">
                             <a class="nav-link" href="index.php?page=home">Accueil<span
-                                    class="sr-only ">(current)</span>
+                                        class="sr-only ">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -46,6 +46,16 @@
                                 <a class="dropdown-item" href="index.php?page=categorie&cat==rubis">Rubis</a>
                             </div>
                         </li>
+                        <ul class=" navbar-nav ">
+                            <li>
+                                <div class="col-2 text-center ">
+                                    <button type="button" class="btn btn-outline-warning pull-right"><a
+                                                href="index.php?page=panier"
+                                                style="color: #EAA90B"> Panier </a>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
                     </ul>
                 </div>
             </nav>
@@ -64,11 +74,7 @@
                         </div>
                     </div>
                     <div class="row align-items-center">
-                        <div class="col-2 text-center">
-                            <button type="button" class="btn btn-outline-secondary"><a href="index.php?page=panier"
-                                                                                       style="color: black"> Panier </a>
-                            </button>
-                        </div>
+
                     </div>
                 </div>
             </div>
