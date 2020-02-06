@@ -1,9 +1,7 @@
 <?php
 
 //j inclus toutesles pages dont j'ai besoin
-include 'function.php';
-include 'pdo.php';
-include 'config.php';
+
 
 //je verifie si $_GET['id'] existe
 if (!empty($_GET)) {

@@ -1,7 +1,5 @@
 <?php
-include 'function.php';
-include 'pdo.php';
-include 'config.php';
+
 //je verifie si le tableau categorie existe et je filtre l'entrée
 if (isset($_GET['categorie'])){
     if(!empty($_GET['categorie'])){

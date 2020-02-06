@@ -2,12 +2,10 @@
 
 //j inclus toutesles pages dont j'ai besoin
 
-include 'function.php';
-include 'pdo.php';
-include 'config.php';
+
 
 //variable description pour meta description
-debug($_SESSION);
+
 
 ?>
 
@@ -31,6 +29,7 @@ debug($_SESSION);
                         <p class="card-text">' . $product['description'] . '</p>
                         <a href="index.php?page=products&id=' . $product['id'] . '"
                            class="btn btn-secondary">' . $product['price'] . ' €</a>
+                    
                     </div>
                 </div>';
 
