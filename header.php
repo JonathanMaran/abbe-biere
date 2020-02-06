@@ -16,6 +16,41 @@
 
 <body>
 <header>
+    <div class="row bg-dark">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item <?php if ($include_page == "home.php") {
+                            ?>active<?php
+                        } ?>">
+                            <a class="nav-link" href="index.php?page=home">Accueil<span
+                                    class="sr-only ">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Catégorie
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="index.php?page=categorie&cat=blonde">Blonde</a>
+                                <a class="dropdown-item" href="index.php?page=categorie&cat==blanche">Blanche</a>
+                                <a class="dropdown-item" href="index.php?page=categorie&cat==brune">Brune</a>
+                                <a class="dropdown-item" href="index.php?page=categorie&cat==ambree">Ambrée</a>
+                                <a class="dropdown-item" href="index.php?page=categorie&cat==rosee">Rosée</a>
+                                <a class="dropdown-item" href="index.php?page=categorie&cat==rubis">Rubis</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
     <div class="row bg-warning">
         <div class="container ">
             <div class="align-items-center bg-warning">
@@ -39,40 +74,6 @@
             </div>
         </div>
     </div>
-    <div class="row bg-dark">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item <?php if ($include_page == "home.php") {
-                            ?>active<?php
-                        } ?>">
-                            <a class="nav-link" href="index.php?page=home">Accueil<span
-                                        class="sr-only ">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Catégorie
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="index.php?page=categorie&cat=blonde">Blonde</a>
-                                <a class="dropdown-item" href="index.php?page=categorie&cat==blanche">Blanche</a>
-                                <a class="dropdown-item" href="index.php?page=categorie&cat==brune">Brune</a>
-                                <a class="dropdown-item" href="index.php?page=categorie&cat==ambree">Ambrée</a>
-                                <a class="dropdown-item" href="index.php?page=categorie&cat==rosee">Rosée</a>
-                                <a class="dropdown-item" href="index.php?page=categorie&cat==rubis">Rubis</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
+
 </header>
 
