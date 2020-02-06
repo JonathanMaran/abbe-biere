@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 //je verifie si le tableau $_GET['page'] existe et je filtre
 if(!isset($_GET['page'])){
     $page='home';

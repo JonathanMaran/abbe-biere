@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 //j inclus toutesles pages dont j'ai besoin
 
 include 'function.php';

@@ -1,5 +1,5 @@
 <footer>
-    <div class="container ">
+    <div class="container">
         <div class="container bg-warning">
             <div class="row">
                 <div class="col-12">

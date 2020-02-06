@@ -31,12 +31,10 @@ function find_last_id(PDO $BDD)
 //produit a afficher
 function view_product(PDO $bdd, int $id)
 {
-    $query_view_product = $bdd->prepare('
+    $query_view_product = $bdd->query('
     SELECT * 
     FROM products
-    WHERE id= :id');
-    $query_view_product->bindParam(':id', $id, PDO::PARAM_INT);
-    $query_view_product->execute();
+    WHERE id= ' . $id);
     $answer = $query_view_product->fetch();
     return $answer;
 }
@@ -44,8 +42,8 @@ function view_product(PDO $bdd, int $id)
 //calcul tva
 function calcul_tva(float $price)
 {
-    $tva = $price *0.2;
-    round($tva,2);
+    $tva = $price /1.2;
+    $tva = $price - $tva;
+    $tva = round($tva, 2);
     return $tva;
 }
-
