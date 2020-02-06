@@ -38,12 +38,14 @@ $include_page=null;
 
 if (isset($root[$page])){
     $include_page=$root[$page];
+    $include_description=$description[$page];
 } else {
     $include_page='404';
+    $include_description='cette page n existe pas';
 }
 
 
-
+include $include_description;
 include 'header.php';
 include $include_page.'.php';
 include 'footer.php';

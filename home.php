@@ -8,7 +8,7 @@ include 'config.php';
 
 //variable description pour meta description
 debug($_SESSION);
-$description = 'le culte de la biere';
+
 ?>
 
 <!-- main home-->
