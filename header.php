@@ -11,7 +11,7 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css.css">
     <title><?php echo $include_page ?></title>
-<meta name="description" content="<?php $description ?>">
+<meta name="description" content="<?php echo $include_description ?>">
 </head>
 
 <body>

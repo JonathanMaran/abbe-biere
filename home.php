@@ -8,6 +8,11 @@ include 'config.php';
 
 //variable description pour meta description
 $description = 'le culte de la biere';
+if (isset($_POST['id'])){
+    $id = $_POST['id'];
+    ajoutProduit($BDD, $id, 1);
+}
+debug($_SESSION);
 ?>
 
 <!-- main home-->
@@ -18,24 +23,25 @@ $description = 'le culte de la biere';
             <!-- titre -->
             <h2>Les derniers produits</h2>
         </div>
-<div class="row col-12 ">
-        <!-- affichage des derniers produits -->
-        <?php $products = productsindex($BDD);
-        foreach ($products as $product) {
-            echo '       
+        <div class="row col-12 ">
+            <!-- affichage des derniers produits -->
+            <?php $products = productsindex($BDD);
+            foreach ($products as $product) {
+                echo '       
                 <div class="card col-3 text-center shadow p-3 mb-5 " style="width: 16.5rem;">
                     <a href="index.php?page=products&id=' . $product['id'] . '"><img src="/photos/' . $product['photo_link'] . '.jpeg" class="card-img-top" alt="' . $product['photo_link'] . '"></a>
                     <div class="card-body">
                         <h5 class="card-title "><a href="index.php?page=products&id=' . $product['id'] . '">' . $product['name'] . '</a> </h5>
                         <p class="card-text">' . $product['description'] . '</p>
-                        <a href="index.php?page=products&id=' . $product['id'] . '"
-                           class="btn btn-secondary">' . $product['price'] . ' €</a>
+                            <form method="post">
+                            <input name="id" type="hidden" value="' . $product['id'] . '">
+                            <button type="submit" class="btn btn-dark">' . $product['price'] . '</button>
+                            </form>
                     </div>
                 </div>';
+            }?>
 
-
-        } ?>
-</div>
+        </div>
     </div>
 </main>
 
