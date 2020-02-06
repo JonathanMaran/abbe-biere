@@ -42,8 +42,28 @@ function view_product(PDO $bdd, int $id)
 //calcul tva
 function calcul_tva(float $price)
 {
-    $tva = $price /1.2;
+    $tva = $price / 1.2;
     $tva = $price - $tva;
     $tva = round($tva, 2);
     return $tva;
+}
+
+
+function addtocart(int $id, int $quantite)
+{
+    createcart();
+    if(!empty($_SESSION['cart'][$id]))
+    {
+        $_SESSION['cart'][$id] = $_SESSION['cart'][$id] + $quantite;
+    }else{
+        $_SESSION['cart'][$id] = $quantite;
+    }
+
+}
+
+function createcart()
+{
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = array();
+    }
 }

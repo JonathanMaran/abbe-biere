@@ -1,10 +1,4 @@
 <?php
-session_start();
-//j inclus toutesles pages dont j'ai besoin
-
-include 'function.php';
-include 'pdo.php';
-include 'config.php';
 
 //variable description pour meta description
 $description = 'le culte de la biere';

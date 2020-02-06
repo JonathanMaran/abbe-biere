@@ -1,10 +1,15 @@
 <?php
+/*session_reset();*/
 session_start();
+// j'initialise mon panier
 
-$_SESSION['prenom'];
-$_SESSION['nom'];
-$_SESSION['age'];
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
+ }
 
-$creationpanier = creationPanier();
 
-debug();
+?>
+<pre>
+<?php
+var_dump($_SESSION['cart']); ?>
+</pre>
