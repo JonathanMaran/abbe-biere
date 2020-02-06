@@ -68,27 +68,19 @@ function categorieview(PDO $BDD, string $categorie)
 
 function createcart()
 {
-if (!isset($_SESSION['panier'])){
-    $_SESSION['panier']= array();
-}
+    if (!isset($_SESSION['panier'])) {
+        $_SESSION['panier'] = array();
+    }
 }
 
-function addtocart(string $idProduit, int $qteProduit)
+function addtocart(int $idProduit, int $qteProduit)
 {
     createcart();
-        if(isset($_SESSION['panier'][$idProduit])){
-            $_SESSION['panier'][$idProduit]['qte']+=$qteProduit;
+    if (isset($_SESSION['panier'][$idProduit])) {
+        $_SESSION['panier'][$idProduit] += $qteProduit;
     } else {
-            $_SESSION['panier']=$idProduit;
-            $_SESSION['panier'][$idProduit]=$qteProduit;
-        }
-    //je verifie si le panier existe sinon je le crée
-   /* if (!isset($_SESSION['panier'])) {
-        $_SESSION['panier'] = array();
-        $_SESSION['panier'][$idProduit] = $produit;
-    } elseif(isset($_SESSION['panier'][$idProduit])) {
-        $_SESSION['panier'][$idProduit]['qte'] += $qteProduit;
-    } else {
-        $_SESSION['panier'][$idProduit]=$produit;*/
+        $_SESSION['panier']['id'] = $idProduit;
+        $_SESSION['panier'][$idProduit] = $qteProduit;
     }
+}
 
