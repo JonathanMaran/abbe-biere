@@ -6,12 +6,13 @@ include 'pdo.php';
 include 'config.php';
 
 //je verifie si $_GET['id'] existe
-if (isset($_GET['id'])) {
+if (!empty($_GET)) {
     if (!empty($_GET['id'])) {
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
     } else {
         $id = find_last_id($BDD);
     }
+
     debug($_SESSION);
 
     //sinon j'afficher par defaut le dernier produit rentre
@@ -22,6 +23,19 @@ if (isset($_GET['id'])) {
 $view_product = view_product($BDD, $id);
 
 $tva = calcul_tva($view_product['price']);
+
+if (!empty($_POST)) {
+    if (!empty($_POST['qte'])) {
+        $qte = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT);
+        if ($qte < 0) {
+            $qte = 0;
+        }
+        $_SESSION['panier'] = array(
+            'id' => $id,
+            'qte' => $qte,
+        );
+    }
+}
 
 
 ?>
@@ -49,10 +63,11 @@ $tva = calcul_tva($view_product['price']);
                             <?= $view_product['price'] ?> €<br>
                             dont tva <?= $tva ?> €
                         </div>
-                        <form class="form-inline" method="post" action="panier.php">
+                        <form class="form-inline" method="post" action="index.php?page=products&id=<?= $id ?>">
                             <div class="form-group mx-sm-3 mb-2">
                                 <label for="qte" class="sr-only">Quantité</label>
-                                <input type="number" min="0" class="form-control" id="qte" name="qte" placeholder="Quantité">
+                                <input type="number" min="0" class="form-control" id="qte" name="qte"
+                                       placeholder="Quantité">
                             </div>
                             <button type="submit" class="btn btn-secondary mb-2">Ajouter au panier</button>
                         </form>

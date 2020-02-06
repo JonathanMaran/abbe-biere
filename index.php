@@ -1,10 +1,9 @@
 <?php
 session_start();
-if (!isset($_SESSION['panier'])){
-    $_SESSION['panier']=array();
-    $_SESSION['panier']['idProduit'] = array();
-    $_SESSION['panier']['qteProduit'] = array();
-}
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 
 //je verifie si le tableau $_GET['page'] existe et je filtre
@@ -21,6 +20,7 @@ $root=[
     'home'=> 'home',
     'categorie'=> 'categorie',
     'products' => 'product',
+    'panier'=>'panier'
 ];
 
 // tableau avec chaque description
@@ -28,6 +28,7 @@ $description=[
     'home'=> 'ceci est notre super site de ventre de biere',
     'categorie'=> 'vous trouverez ici toutes nos bieres rangées par categorie',
     'products'=>'le produit dans tout ces états',
+    'panier'=>'votre panier avec toutes vos bieres selectionées',
 ];
 
 
@@ -45,7 +46,7 @@ if (isset($root[$page])){
 }
 
 
-include $include_description;
+
 include 'header.php';
 include $include_page.'.php';
 include 'footer.php';

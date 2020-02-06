@@ -20,12 +20,14 @@ LIMIT 10 ');
 //fonction pour recuperer le dernier id
 function find_last_id(PDO $BDD)
 {
-    $query_last_id = $BDD->query('
+    $query_last_id = $BDD->prepare('
     SELECT id
     FROM products
     ORDER BY id DESC 
     LIMIT 1');
-    return $query_last_id;
+    $query_last_id ->execute();
+    $answer=$query_last_id->fetch();
+    return $answer['id'];
 }
 
 //produit a afficher
