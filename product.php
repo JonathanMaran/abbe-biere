@@ -30,10 +30,7 @@ if (!empty($_POST)) {
         if ($qte < 0) {
             $qte = 0;
         }
-        $_SESSION['panier'] = array(
-            'id' => $id,
-            'qte' => $qte,
-        );
+        addtocart($id,$qte);
     }
 }
 

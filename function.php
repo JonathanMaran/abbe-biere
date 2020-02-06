@@ -25,8 +25,8 @@ function find_last_id(PDO $BDD)
     FROM products
     ORDER BY id DESC 
     LIMIT 1');
-    $query_last_id ->execute();
-    $answer=$query_last_id->fetch();
+    $query_last_id->execute();
+    $answer = $query_last_id->fetch();
     return $answer['id'];
 }
 
@@ -44,7 +44,7 @@ function view_product(PDO $bdd, int $id)
 }
 
 //calcul tva
-function calcul_tva(float $price):float
+function calcul_tva(float $price): float
 {
     $tva = $price * 0.2;
     round($tva, 2);
@@ -66,25 +66,29 @@ function categorieview(PDO $BDD, string $categorie)
 }
 
 
-function ajouterArticle(string $idProduit,int $qteProduit)
+function createcart()
 {
-    //Si le panier existe
-    if (isset ($_SESSION['panier'])){
-        //Si le produit existe déjà on ajoute seulement la quantité
-        $positionProduit = array_search($idProduit,  $_SESSION['panier']['idProduit']);
-
-        if ($positionProduit !== false)
-        {
-            $_SESSION['panier']['qteProduit'][$positionProduit] += $qteProduit ;
-        }
-        else
-        {
-            //Sinon on ajoute le produit
-            array_push( $_SESSION['panier']['idProduit'],$idProduit);
-            array_push( $_SESSION['panier']['qteProduit'],$qteProduit);
-        }
-    }
-    else
-        echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+if (!isset($_SESSION['panier'])){
+    $_SESSION['panier']= array();
 }
+}
+
+function addtocart(string $idProduit, int $qteProduit)
+{
+    createcart();
+        if(isset($_SESSION['panier'][$idProduit])){
+            $_SESSION['panier'][$idProduit]['qte']+=$qteProduit;
+    } else {
+            $_SESSION['panier']=$idProduit;
+            $_SESSION['panier'][$idProduit]=$qteProduit;
+        }
+    //je verifie si le panier existe sinon je le crée
+   /* if (!isset($_SESSION['panier'])) {
+        $_SESSION['panier'] = array();
+        $_SESSION['panier'][$idProduit] = $produit;
+    } elseif(isset($_SESSION['panier'][$idProduit])) {
+        $_SESSION['panier'][$idProduit]['qte'] += $qteProduit;
+    } else {
+        $_SESSION['panier'][$idProduit]=$produit;*/
+    }
 
