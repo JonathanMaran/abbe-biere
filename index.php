@@ -21,11 +21,13 @@ if(!isset($_GET['page'])){
 $root=[
     'home'=> 'home.php',
     'products' => 'product.php',
+    'panier'=>'panier.php'
 ];
 
 $description=[
     'home' => 'Bienvenue dans le monde incroyable de la bière ! Vous trouverez forcémment votre bonheure !',
     'products' => 'Découvrez toute notre gamme de bières',
+    'panier'=> 'Voici votre panier',
 ];
 
 

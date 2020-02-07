@@ -11,21 +11,21 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css.css">
     <title><?php echo $include_page ?></title>
-<meta name="description" content="<?php echo $include_description ?>">
+    <meta name="description" content="<?php echo $include_description ?>">
 </head>
 
 <body>
 <header>
     <div class="container">
-            <div class="align-items-center bg-warning">
-                <div class="col-lg-12 text-center h1 ">
-                   L'abbé bière
-                </div>
-
-                <div class="col-lg-12 text-center">
-                    Le culte de la bière
-                </div>
+        <div class="align-items-center bg-warning">
+            <div class="col-lg-12 text-center h1 ">
+                L'abbé bière
             </div>
+
+            <div class="col-lg-12 text-center">
+                Le culte de la bière
+            </div>
+        </div>
         <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,14 +36,22 @@
                     <li class="nav-item <?php if ($include_page == "home") {
                         ?>active<?php
                     } ?>">
-                        <a class="nav-link" href="index.php?page=home">Accueil<span class="sr-only ">(current)</span> </a>
+                        <a class="nav-link" href="index.php?page=home">Accueil<span class="sr-only ">(current)</span>
+                        </a>
                     </li>
                     <li class="nav-item <?php if ($include_page == "products") {
                         ?>active<?php
                     } ?>">
-                        <a class="nav-link" href="index.php?page=products">Produits<span class="sr-only ">(current)</span>
+                        <a class="nav-link" href="index.php?page=products">Produits<span
+                                    class="sr-only ">(current)</span>
                         </a>
-
+                    </li>
+                    <li class="nav-item <?php if ($include_page == "panier") {
+                        ?>active<?php
+                    } ?>">
+                        <a class="nav-link" href="index.php?page=panier">Panier<span
+                                class="sr-only ">(current)</span>
+                        </a>
                     </li>
 
                 </ul>
