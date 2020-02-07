@@ -1,14 +1,11 @@
 <?php
 
-//j inclus toutesles pages dont j'ai besoin
 
-
-//variable description pour meta description
-$description = 'le culte de la biere';
 if (isset($_POST['id'])){
     $id = $_POST['id'];
-    addtoCart($BDD, $id, 1);
+    addtoCart( $id, 1);
 }
+
 debug($_SESSION);
 ?>
 
@@ -31,14 +28,16 @@ debug($_SESSION);
                         <h5 class="card-title "><a href="index.php?page=products&id=' . $product['id'] . '">' . $product['name'] . '</a> </h5>
                         <p class="card-text">' . $product['description'] . '</p>
                             <form method="post">
-                            <input name="id" type="hidden" value="' . $product['id'] . '">
-                            <p>' . $product['price'] . ' €</p>
-                            <button type="submit" class="btn btn-dark">Ajout Rapide</button>
+                                <input name="id" type="hidden" value="' . $product['id'] . '">
+                                <p>' . $product['price'] . ' €</p>
+                                <button type="submit" class="btn btn-dark">Ajout Rapide</button>
                             </form>
+                    
                     </div>
                 </div>';
-            }?>
 
+
+            } ?>
         </div>
     </div>
 </main>
