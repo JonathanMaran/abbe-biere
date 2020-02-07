@@ -20,50 +20,76 @@ LIMIT 10 ');
 //fonction pour recuperer le dernier id
 function find_last_id(PDO $BDD)
 {
-    $query_last_id = $BDD->query('
+    $query_last_id = $BDD->prepare('
     SELECT id
-    FROM produts
+    FROM products
     ORDER BY id DESC 
     LIMIT 1');
-    return $query_last_id;
+    $query_last_id->execute();
+    $answer = $query_last_id->fetch();
+    return $answer['id'];
 }
 
 //produit a afficher
 function view_product(PDO $bdd, int $id)
 {
-    $query_view_product = $bdd->query('
+    $query_view_product = $bdd->prepare('
     SELECT * 
     FROM products
-    WHERE id= ' . $id);
+    WHERE id= :id');
+    $query_view_product->bindParam(':id', $id, PDO::PARAM_INT);
+    $query_view_product->execute();
     $answer = $query_view_product->fetch();
     return $answer;
 }
 
 //calcul tva
-function calcul_tva(float $price)
+function calcul_tva(float $price): float
 {
-    $tva = $price / 1.2;
-    $tva = $price - $tva;
-    $tva = round($tva, 2);
+    $tva = $price * 0.2;
+    round($tva, 2);
     return $tva;
 }
 
-
-function addtocart(int $id, int $quantite)
+//categories a afficher
+function categorieview(PDO $BDD, string $categorie)
 {
-    createcart();
-    if(!empty($_SESSION['cart'][$id]))
-    {
-        $_SESSION['cart'][$id] = $_SESSION['cart'][$id] + $quantite;
-    }else{
-        $_SESSION['cart'][$id] = $quantite;
-    }
-
+    $querycategorieview = $BDD->prepare('
+    SELECT *
+    FROM products
+    INNER JOIN categories ON categories.id=category_id
+    WHERE categories.name= :categorie');
+    $querycategorieview->bindparam(':categorie', $categorie, PDO::PARAM_STR);
+    $querycategorieview->execute();
+    $querycategorieview->fetchAll();
+    return $querycategorieview;
 }
+
 
 function createcart()
 {
-    if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = array();
+    if (!isset($_SESSION['panier'])) {
+        $_SESSION['panier'] = array();
     }
+}
+
+function addtocart(int $idProduit, int $qteProduit)
+{
+    createcart();
+    if (isset($_SESSION['panier'][$idProduit])) {
+        $_SESSION['panier'][$idProduit] += $qteProduit;
+    } else {
+        $_SESSION['panier'][$idProduit] = $qteProduit;
+    }
+}
+
+function infosproducts(PDO $bdd, int $id)
+{
+    $query_view_product = $bdd->prepare('
+    SELECT * 
+    FROM products
+    WHERE id='. $id);
+        $query_view_product->execute();
+    $answer = $query_view_product->fetch();
+    return $answer;
 }

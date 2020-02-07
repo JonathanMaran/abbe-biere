@@ -1,34 +1,41 @@
 <?php
-/*ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);*/
+session_start();
 
-include 'sessions.php';
-//j inclus toutesles pages dont j'ai besoin
 include 'function.php';
 include 'pdo.php';
 include 'config.php';
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 //je verifie si le tableau $_GET['page'] existe et je filtre
-if(!isset($_GET['page'])){
-    $page='home';
-} elseif(!empty($_GET['page'])){
+if(isset($_GET['page'])){
     $page=filter_input(INPUT_GET,'page',FILTER_SANITIZE_STRING);
+} elseif(empty($_GET['page'])){
+    $page='home';
+} else{
+    $page='home';
 }
 
-//je cree un tableau avec chaque route
+// tableau avec chaque route
 $root=[
-    'home'=> 'home.php',
-    'products' => 'product.php',
-    'panier'=>'panier.php'
+    'home'=> 'home',
+    'categorie'=> 'categorie',
+    'products' => 'product',
+    'panier'=>'panier'
 ];
 
+// tableau avec chaque description
 $description=[
-    'home' => 'Bienvenue dans le monde incroyable de la bière ! Vous trouverez forcémment votre bonheure !',
-    'products' => 'Découvrez toute notre gamme de bières',
-    'panier'=> 'Voici votre panier',
+    'home'=> 'ceci est notre super site de ventre de biere',
+    'categorie'=> 'vous trouverez ici toutes nos bieres rangées par categorie',
+    'products'=>'le produit dans tout ces états',
+    'panier'=>'votre panier avec toutes vos bieres selectionées',
 ];
+
+
 
 
 //je redirige vers la page
@@ -39,9 +46,11 @@ if (isset($root[$page])){
     $include_description=$description[$page];
 } else {
     $include_page='404';
+    $include_description='cette page n existe pas';
 }
 
 
+
 include 'header.php';
-include $include_page;
+include $include_page.'.php';
 include 'footer.php';
