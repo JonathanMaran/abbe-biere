@@ -83,3 +83,9 @@ function addtocart(int $idProduit, int $qteProduit)
     }
 }
 
+function editCart(int $idProduct, int $qtyProduit)
+{
+    foreach ($_POST['panier'] as $idProduct => $qtyProduit) {
+
+    }
+}
