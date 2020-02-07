@@ -65,17 +65,16 @@
         <div class="container ">
             <div class="align-items-center bg-warning">
                 <div class="row ">
-                    <div class="col-10">
-                        <div class="col-lg-12 text-center h1 ">
-                            L'abbé bière
-                        </div>
-                        <div class="col-lg-12 text-center">
-                            Le culte de la bière
-                        </div>
+
+                    <div class="col-lg-12 text-center h1 ">
+                        <br>
+                        L'abbé bière
                     </div>
-                    <div class="row align-items-center">
+                    <div class="col-lg-12 text-center">
+                        <p>Le culte de la bière<br></p>
 
                     </div>
+
                 </div>
             </div>
         </div>
