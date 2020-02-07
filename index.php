@@ -3,14 +3,9 @@ session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
-
-if (!isset($_SESSION['cart'])) {
-
-    $_SESSION['cart'] = array();
-
-}
-
+include 'function.php';
+include 'pdo.php';
+include 'config.php';
 
 //je verifie si le tableau $_GET['page'] existe et je filtre
 if (!isset($_GET['page'])) {

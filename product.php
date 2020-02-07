@@ -1,8 +1,5 @@
 <?php
 //j inclus toutesles pages dont j'ai besoin
-include 'function.php';
-include 'pdo.php';
-include 'config.php';
 
 $errorquantity = null;
 
@@ -32,7 +29,7 @@ if (!empty($_POST)) {
     } else {
         $errorquantity = 'Veuillez rentrer une quantité';
     }
-    ajoutProduit($BDD, $id, $quantity);
+    addtoCart($BDD, $id, $quantity);
 }
 
 $view_product = view_product($BDD, $id);

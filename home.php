@@ -2,15 +2,12 @@
 
 //j inclus toutesles pages dont j'ai besoin
 
-include 'function.php';
-include 'pdo.php';
-include 'config.php';
 
 //variable description pour meta description
 $description = 'le culte de la biere';
 if (isset($_POST['id'])){
     $id = $_POST['id'];
-    ajoutProduit($BDD, $id, 1);
+    addtoCart($BDD, $id, 1);
 }
 debug($_SESSION);
 ?>
@@ -35,7 +32,8 @@ debug($_SESSION);
                         <p class="card-text">' . $product['description'] . '</p>
                             <form method="post">
                             <input name="id" type="hidden" value="' . $product['id'] . '">
-                            <button type="submit" class="btn btn-dark">' . $product['price'] . '</button>
+                            <p>' . $product['price'] . ' €</p>
+                            <button type="submit" class="btn btn-dark">Ajout Rapide</button>
                             </form>
                     </div>
                 </div>';

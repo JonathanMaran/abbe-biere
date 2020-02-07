@@ -50,11 +50,22 @@ function calcul_tva(float $price)
     return $tva;
 }
 
-function ajoutProduit(PDO $BDD, int $id, int $quantity)
+function createCart()
 {
+    if (!isset($_SESSION['cart'])) {
+
+        $_SESSION['cart'] = array();
+
+    }
+
+}
+
+function addtoCart(PDO $BDD, int $id, int $quantity)
+{
+    createCart();
     if (!isset($_SESSION['cart'][$id])) {
         $_SESSION['cart'][$id] = $quantity;
-    }else {
+    } else {
         $_SESSION['cart'][$id] += $quantity;
     }
 }
