@@ -88,8 +88,17 @@ function infosproducts(PDO $bdd, int $id)
     $query_view_product = $bdd->prepare('
     SELECT * 
     FROM products
-    WHERE id='. $id);
-        $query_view_product->execute();
+    WHERE id=' . $id);
+    $query_view_product->execute();
     $answer = $query_view_product->fetch();
     return $answer;
+}
+
+function modifycart(array $quantites)
+{
+    foreach ($quantites as $id => $quantite) {
+        $_SESSION['panier'][$id] = $quantite;
+
+    }
+
 }
