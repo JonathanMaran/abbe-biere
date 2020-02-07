@@ -20,12 +20,14 @@ LIMIT 10 ');
 //fonction pour recuperer le dernier id
 function find_last_id(PDO $BDD)
 {
-    $query_last_id = $BDD->query('
+    $query_last_id = $BDD->prepare('
     SELECT id
-    FROM produts
+    FROM products
     ORDER BY id DESC 
     LIMIT 1');
-    return $query_last_id;
+    $query_last_id->execute();
+    $answer = $query_last_id->fetch();
+    return $answer['id'];
 }
 
 //produit a afficher
@@ -42,10 +44,42 @@ function view_product(PDO $bdd, int $id)
 }
 
 //calcul tva
-function calcul_tva(float $price)
+function calcul_tva(float $price): float
 {
-    $tva = $price *0.2;
-    round($tva,2);
+    $tva = $price * 0.2;
+    round($tva, 2);
     return $tva;
+}
+
+//categories a afficher
+function categorieview(PDO $BDD, string $categorie)
+{
+    $querycategorieview = $BDD->prepare('
+    SELECT *
+    FROM products
+    INNER JOIN categories ON categories.id=category_id
+    WHERE categories.name= :categorie');
+    $querycategorieview->bindparam(':categorie', $categorie, PDO::PARAM_STR);
+    $querycategorieview->execute();
+    $querycategorieview->fetchAll();
+    return $querycategorieview;
+}
+
+
+function createcart()
+{
+    if (!isset($_SESSION['panier'])) {
+        $_SESSION['panier'] = array();
+    }
+}
+
+function addtocart(int $idProduit, int $qteProduit)
+{
+    createcart();
+    if (isset($_SESSION['panier'][$idProduit])) {
+        $_SESSION['panier'][$idProduit] += $qteProduit;
+    } else {
+        $_SESSION['panier'][$idProduit] = $qteProduit;
+    }
 }
 
