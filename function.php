@@ -83,3 +83,8 @@ function addtocart(int $idProduit, int $qteProduit)
     }
 }
 
+function modifycart(int $idProduit, int $qteProduit)
+{
+    $_SESSION['panier'][$idProduit] = $qteProduit;
+}
+
