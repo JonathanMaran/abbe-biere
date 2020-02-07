@@ -56,7 +56,7 @@ $totalprice = 0;
                         <div class="col-md-4">
 
                             <label for="qte">Quantité</label>
-                            <input type="number" id="qte" name="articles[<?= $id ?>]" required minlength="4"
+                            <input type="number" id="qte" min="0" name="articles[<?= $id ?>]" required minlength="4"
                                    maxlength="8" size="10" value="<?= $qte ?>">
                             <div class="form-check mb-2 mr-sm-2">
                                 <input class="form-check-input" type="checkbox" id="delete" name="delete">
