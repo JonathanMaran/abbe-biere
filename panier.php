@@ -1,12 +1,12 @@
 <?php
-
+$message='';
 if (!empty($_POST)) {
     if (!empty($_POST['articles'])) {
 //        $qte = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT);
 //        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         foreach ($_POST['articles'] as $id => $qte) {
 
-            modifycart($BDD,$id, $qte);
+            $message=modifycart($BDD,$id, $qte);
         }
     }
 }
@@ -32,7 +32,8 @@ $totalprice = 0;
 
         } else {
         ?>
-        <form class="form" method="post" action="index.php?page=panier"><?php
+        <form class="form" method="post" action="index.php?page=panier">
+            <div class="col-12 text-center"><?=$message?></div><?php
             foreach ($_SESSION['panier'] as $id => $qte) {
                 $product = view_product($BDD, $id);
                 $totalpriceproduct = $qte * $product['price'];

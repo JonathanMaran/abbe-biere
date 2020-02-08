@@ -88,6 +88,9 @@ function modifycart(PDO $bdd,int $idProduit, int $qteProduit)
 {
     if(verifystock($bdd,$idProduit,$qteProduit)== true){
         $_SESSION['panier'][$idProduit] = $qteProduit;
+        return $message='le stock à été mis à jour';
+    } else {
+        return $message='la modification à echoué, le stock n\'est pas suffisant';
     }
 
 }
