@@ -76,6 +76,7 @@ function createcart()
 function addtocart(int $idProduit, int $qteProduit)
 {
     createcart();
+    verifystock($bdd, $idProduit, $qteProduit);
     if (isset($_SESSION['panier'][$idProduit])) {
         $_SESSION['panier'][$idProduit] += $qteProduit;
     } else {
@@ -83,8 +84,33 @@ function addtocart(int $idProduit, int $qteProduit)
     }
 }
 
-function modifycart(int $idProduit, int $qteProduit)
+function modifycart(PDO $bdd,int $idProduit, int $qteProduit)
 {
-    $_SESSION['panier'][$idProduit] = $qteProduit;
+    $stock =getstock($bdd,$idProduit);
+    if(verifystock($stock,$qteProduit)== true){
+        $_SESSION['panier'][$idProduit] = $qteProduit;
+    }
+
 }
 
+function getstock(PDO $bdd,int $idProduit)
+{
+    $querygetstock = $bdd -> prepare('
+    SELECT products.stock
+    FROM products
+    WHERE id = :id
+    ');
+    $querygetstock->bindparam(':id',$idProduit,PDO::PARAM_INT);
+    $stock = $querygetstock->execute();
+    return $stock;
+}
+
+function verifystock($stockproducts,$quantity):bool
+{
+    if ($stockproducts<$quantity){
+        return false;
+    } else {
+        return true;
+    }
+
+}

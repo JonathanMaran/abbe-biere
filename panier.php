@@ -6,7 +6,7 @@ if (!empty($_POST)) {
 //        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         foreach ($_POST['articles'] as $id => $qte) {
 
-            modifycart($id, $qte);
+            modifycart($BDD,$id, $qte);
         }
     }
 }
