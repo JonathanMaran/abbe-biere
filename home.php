@@ -29,8 +29,10 @@ if (isset($_POST['id'])){
                         <p class="card-text">' . $product['description'] . '</p>
                             <form method="post">
                                 <input name="id" type="hidden" value="' . $product['id'] . '">
+                                <p>'.$product['weight'].'ml</p>
                                 <p>' . $product['price'] . ' €</p>
                                 <button type="submit" class="btn btn-dark">Ajout Rapide</button>
+                                <p>stock restant: '.$product['stock'].'</p>
                             </form>
                     
                     </div>

@@ -113,8 +113,6 @@ function verifystock(PDO $bdd,int $idproduct,int $quantity):bool
 {
 
     $stockproducts=getstock($bdd,$idproduct);
-    debug($stockproducts);
-    debug($quantity);
     if ( $stockproducts<$quantity){
         return false;
     } else {
