@@ -1,5 +1,6 @@
 <?php
 $message='';
+debug($_POST);
 if (!empty($_POST)) {
     if (!empty($_POST['articles'])) {
 //        $qte = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT);
@@ -7,6 +8,11 @@ if (!empty($_POST)) {
         foreach ($_POST['articles'] as $id => $qte) {
 
             $message=modifycart($BDD,$id, $qte);
+        }
+    }
+    if (!empty($_POST['delete'])){
+        foreach ($_POST['delete'] as $id=> $on){
+            $message=modifycart($BDD, $id,0);
         }
     }
 }
@@ -60,7 +66,7 @@ $totalprice = 0;
                             <input type="number" id="qte" min="0" name="articles[<?= $id ?>]" required minlength="4"
                                    maxlength="8" size="10" value="<?= $qte ?>">
                             <div class="form-check mb-2 mr-sm-2">
-                                <input class="form-check-input" type="checkbox" id="delete" name="delete">
+                                <input class="form-check-input" type="checkbox" id="delete" name="delete[<?=$id?>]" value="on">
                                 <label class="form-check-label" for="delete">
                                     Supprimer
                                 </label>
