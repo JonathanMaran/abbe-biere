@@ -13,7 +13,7 @@ if (!empty($_POST)) {
 
 $totalprice = 0;
 ?>
-<main>
+<main style="min-height: calc(100vh - 144px - 56px - 64px)">
     <div class="container">
 
         <?php if (empty($_SESSION)) {

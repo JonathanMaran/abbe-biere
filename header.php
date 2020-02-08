@@ -38,12 +38,12 @@
                                 Catégorie
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="index.php?page=categorie&cat=blonde">Blonde</a>
-                                <a class="dropdown-item" href="index.php?page=categorie&cat==blanche">Blanche</a>
-                                <a class="dropdown-item" href="index.php?page=categorie&cat==brune">Brune</a>
-                                <a class="dropdown-item" href="index.php?page=categorie&cat==ambree">Ambrée</a>
-                                <a class="dropdown-item" href="index.php?page=categorie&cat==rosee">Rosée</a>
-                                <a class="dropdown-item" href="index.php?page=categorie&cat==rubis">Rubis</a>
+                                <a class="dropdown-item" href="index.php?page=categorie&cat=Blondes">Blonde</a>
+                                <a class="dropdown-item" href="index.php?page=categorie&cat=Blanches">Blanche</a>
+                                <a class="dropdown-item" href="index.php?page=categorie&cat=Brunes">Brune</a>
+                                <a class="dropdown-item" href="index.php?page=categorie&cat=Ambrées">Ambrée</a>
+                                <a class="dropdown-item" href="index.php?page=categorie&cat=Rosées">Rosée</a>
+                                <a class="dropdown-item" href="index.php?page=categorie&cat=Rubis">Rubis</a>
                             </div>
                         </li>
                         <ul class=" navbar-nav ">

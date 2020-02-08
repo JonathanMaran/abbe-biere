@@ -55,14 +55,14 @@ function calcul_tva(float $price): float
 function categorieview(PDO $BDD, string $categorie)
 {
     $querycategorieview = $BDD->prepare('
-    SELECT *
-    FROM products
-    INNER JOIN categories ON categories.id=category_id
-    WHERE categories.name= :categorie');
+    SELECT products.*
+FROM products
+INNER JOIN categories ON categories.id = products.category_id
+WHERE categories.name = :categorie');
     $querycategorieview->bindparam(':categorie', $categorie, PDO::PARAM_STR);
     $querycategorieview->execute();
-    $querycategorieview->fetchAll();
-    return $querycategorieview;
+    $answer = $querycategorieview->fetchAll();
+    return $answer;
 }
 
 

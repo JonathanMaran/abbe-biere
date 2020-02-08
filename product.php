@@ -11,7 +11,7 @@ if (!empty($_GET)) {
         $id = find_last_id($BDD);
     }
 
-    debug($_SESSION);
+
 
     //sinon j'afficher par defaut le dernier produit rentre
 } else {
@@ -36,7 +36,7 @@ if (!empty($_POST)) {
 ?>
 
 <!-- main product -->
-<main style="min-height: calc(100vh - 136px - 65px)">
+<main style="min-height: calc(100vh - 144px - 56px - 64px)">
     <div class="container">
         <div class="col-12 text-center">
             <!-- titre -->

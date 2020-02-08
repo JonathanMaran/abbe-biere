@@ -6,7 +6,7 @@ if (isset($_POST['id'])){
     addtoCart( $id, 1);
 }
 
-debug($_SESSION);
+
 ?>
 
 <!-- main home-->
