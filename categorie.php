@@ -1,7 +1,9 @@
 <?php
+$message='';
+
 if (isset($_POST['id'])){
     $id = $_POST['id'];
-    addtoCart( $id, 1);
+    $message=addtoCart($BDD, $id, 1);
 }
 
 //je verifie si le tableau cat existe et je filtre l'entrée
@@ -22,6 +24,7 @@ if ($categorie == 'Blondes' || $categorie == 'Blanches' || $categorie == 'Brunes
                 <!-- titre -->
                 <h2>Nos <?= $categorie ?></h2>
             </div>
+            <div class="col-12 text-center"><?=$message?></div>
             <div class="row col-12 ">
                 <!-- affichage des derniers produits -->
                 <?php
@@ -33,8 +36,10 @@ if ($categorie == 'Blondes' || $categorie == 'Blanches' || $categorie == 'Brunes
                         <p class="card-text">' . $categorie['description'] . '</p>
                             <form method="post">
                                 <input name="id" type="hidden" value="' . $categorie['id'] . '">
+                                <p>'.$categorie['weight'].'ml</p>
                                 <p>' . $categorie['price'] . ' €</p>
                                 <button type="submit" class="btn btn-dark">Ajout Rapide</button>
+                                <p>stock restante '.$categorie['stock'].'</p>
                             </form>
                     
                     </div>

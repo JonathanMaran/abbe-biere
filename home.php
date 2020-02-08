@@ -1,9 +1,9 @@
 <?php
-
+$message='';
 
 if (isset($_POST['id'])){
     $id = $_POST['id'];
-    addtoCart( $id, 1);
+    $message=addtoCart( $BDD,$id, 1);
 }
 
 
@@ -17,6 +17,7 @@ if (isset($_POST['id'])){
             <!-- titre -->
             <h2>Les derniers produits</h2>
         </div>
+        <div class="col-12 text-center"><?=$message?></div>
         <div class="row col-12 ">
             <!-- affichage des derniers produits -->
             <?php $products = productsindex($BDD);

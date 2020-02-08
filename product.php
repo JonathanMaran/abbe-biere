@@ -1,6 +1,6 @@
 <?php
 
-//j inclus toutesles pages dont j'ai besoin
+$message='';
 
 
 //je verifie si $_GET['id'] existe
@@ -28,7 +28,7 @@ if (!empty($_POST)) {
         if ($qte < 0) {
             $qte = 0;
         }
-        addtocart($id,$qte);
+        $message=addtocart($BDD,$id,$qte);
     }
 }
 
@@ -39,6 +39,7 @@ if (!empty($_POST)) {
 <main style="min-height: calc(100vh - 144px - 56px - 64px)">
     <div class="container">
         <div class="col-12 text-center">
+            <p><?=$message?></p>
             <!-- titre -->
             <h2><?= $view_product['name'] ?></h2>
         </div>

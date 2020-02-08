@@ -73,47 +73,52 @@ function createcart()
     }
 }
 
-function addtocart(PDO $bdd,int $idProduit, int $qteProduit)
+function addtocart(PDO $bdd, int $idProduit, int $qteProduit)
 {
     createcart();
-    verifystock($bdd, $idProduit, $qteProduit);
-    if (isset($_SESSION['panier'][$idProduit])) {
-        $_SESSION['panier'][$idProduit] += $qteProduit;
-    } else {
-        $_SESSION['panier'][$idProduit] = $qteProduit;
+    if (verifystock($bdd, $idProduit, $qteProduit) == true) {
+        if (isset($_SESSION['panier'][$idProduit])) {
+            $_SESSION['panier'][$idProduit] += $qteProduit;
+        } else {
+            $_SESSION['panier'][$idProduit] = $qteProduit;
+        }
+        $message='votre choix à bien été ajouté au panier';
+    } else{
+        $message='le stock n\'est pas suffisant';
     }
+    return $message;
 }
 
-function modifycart(PDO $bdd,int $idProduit, int $qteProduit)
+function modifycart(PDO $bdd, int $idProduit, int $qteProduit)
 {
-    if(verifystock($bdd,$idProduit,$qteProduit)== true){
+    if (verifystock($bdd, $idProduit, $qteProduit) == true) {
         $_SESSION['panier'][$idProduit] = $qteProduit;
-        return $message='le stock à été mis à jour';
+        return $message = 'le stock à été mis à jour';
     } else {
-        return $message='la modification à echoué, le stock n\'est pas suffisant';
+        return $message = 'la modification à echoué, le stock n\'est pas suffisant';
     }
 
 }
 
-function getstock(PDO $bdd,int $idProduit):int
+function getstock(PDO $bdd, int $idProduit): int
 {
-    $querygetstock = $bdd -> prepare('
+    $querygetstock = $bdd->prepare('
     SELECT products.stock
     FROM products
     WHERE id = :id
     ');
-    $querygetstock->bindparam(':id',$idProduit,PDO::PARAM_INT);
+    $querygetstock->bindparam(':id', $idProduit, PDO::PARAM_INT);
     $querygetstock->execute();
-    $arraystock= $querygetstock -> fetch();
+    $arraystock = $querygetstock->fetch();
     return $arraystock['stock'];
 
 }
 
-function verifystock(PDO $bdd,int $idproduct,int $quantity):bool
+function verifystock(PDO $bdd, int $idproduct, int $quantity): bool
 {
 
-    $stockproducts=getstock($bdd,$idproduct);
-    if ( $stockproducts<$quantity){
+    $stockproducts = getstock($bdd, $idproduct);
+    if ($stockproducts < $quantity) {
         return false;
     } else {
         return true;
