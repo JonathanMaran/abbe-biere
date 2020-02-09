@@ -29,7 +29,7 @@ if ($categorie == 'Blondes' || $categorie == 'Blanches' || $categorie == 'Brunes
                 <!-- affichage des derniers produits -->
                 <?php
                 foreach ($categorieview as $categorie) {
-                    echo '<div class="card col-3 text-center shadow p-3 mb-5 " style="width: 16.5rem;">
+                    echo '<div class="card col-12 col-sm-6 col-md-4 col-lg-3 text-center shadow p-3 mb-5 " style="width: 16.5rem;">
                     <a href="index.php?page=products&id=' . $categorie['id'] . '"><img src="/photos/' . $categorie['photo_link'] . '.jpeg" class="card-img-top" alt="' . $categorie['photo_link'] . '"></a>
                     <div class="card-body">
                         <h5 class="card-title "><a href="index.php?page=products&id=' . $categorie['id'] . '">' . $categorie['name'] . '</a> </h5>
