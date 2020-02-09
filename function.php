@@ -68,8 +68,8 @@ WHERE categories.name = :categorie');
 
 function createcart()
 {
-    if (!isset($_SESSION['panier'])) {
-        $_SESSION['panier'] = array();
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = array();
     }
 }
 
@@ -77,10 +77,10 @@ function addtocart(PDO $bdd, int $idProduit, int $qteProduit)
 {
     createcart();
     if (verifystock($bdd, $idProduit, $qteProduit) == true) {
-        if (isset($_SESSION['panier'][$idProduit])) {
-            $_SESSION['panier'][$idProduit] += $qteProduit;
+        if (isset($_SESSION['cart'][$idProduit])) {
+            $_SESSION['cart'][$idProduit] += $qteProduit;
         } else {
-            $_SESSION['panier'][$idProduit] = $qteProduit;
+            $_SESSION['cart'][$idProduit] = $qteProduit;
         }
         $message='votre choix à bien été ajouté au panier';
     } else{
@@ -92,7 +92,7 @@ function addtocart(PDO $bdd, int $idProduit, int $qteProduit)
 function modifycart(PDO $bdd, int $idProduit, int $qteProduit)
 {
     if (verifystock($bdd, $idProduit, $qteProduit) == true) {
-        $_SESSION['panier'][$idProduit] = $qteProduit;
+        $_SESSION['cart'][$idProduit] = $qteProduit;
         return $message = 'le stock à été mis à jour';
     } else {
         return $message = 'la modification à echoué, le stock n\'est pas suffisant';

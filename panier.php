@@ -50,7 +50,7 @@ $totalprice = 0;
         ?>
         <form class="form" method="post">
             <div class="col-12 text-center"><?= $message ?></div><?php
-            foreach ($_SESSION['panier'] as $id => $qte) {
+            foreach ($_SESSION['cart'] as $id => $qte) {
                 $product = view_product($BDD, $id);
                 $totalpriceproduct = $qte * $product['price'];
                 $totalprice += $qte * $product['price'];
