@@ -2,7 +2,7 @@
 $message = '';
 
 
-
+debug($_POST);
 if (!empty($_POST)) {
     if (!empty($_POST['articles'])) {
 //        $qte = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT);
@@ -15,6 +15,13 @@ if (!empty($_POST)) {
     if (!empty($_POST['delete'])) {
         foreach ($_POST['delete'] as $id => $on) {
             $message = modifycart($BDD, $id, 0);
+        }
+    }
+    if (!empty($_POST['validate'])){
+        $validate=filter_input(INPUT_POST,'validate',FILTER_SANITIZE_STRING);
+        if ($validate=='yes'){
+            header('Location:abbe-biere/index.php?page=login', TRUE, 302);
+            exit;
         }
     }
 }
@@ -95,7 +102,7 @@ $totalprice = 0;
 
                 <button type="submit" class="btn btn-secondary mb-2">valider les modifications</button>
 
-                <button type="submit" class="btn btn-secondary mb-2">valider la commande</button>
+                <button type="submit" name="validate" value="yes" class="btn btn-secondary mb-2">valider la commande</button>
 
             </div>
             <?php } ?>

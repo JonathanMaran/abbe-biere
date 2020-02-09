@@ -46,17 +46,21 @@
                                 <a class="dropdown-item" href="index.php?page=categorie&cat=Rubis">Rubis</a>
                             </div>
                         </li>
-                        <ul class=" navbar-nav ">
-                            <li>
-                                <div class="col-2 text-center ">
-                                    <button type="button" class="btn btn-outline-warning pull-right"><a
-                                                href="index.php?page=panier"
-                                                style="color: #EAA90B"> Panier </a>
-                                    </button>
-                                </div>
-                            </li>
-                        </ul>
                     </ul>
+                    <ul class=" navbar-nav navbar-right">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?page=login">Connection</a>
+                        </li>
+                        <li>
+                            <div class="col-2 text-center ">
+                                <button type="button" class="btn btn-outline-warning pull-right"><a
+                                            href="index.php?page=panier"
+                                            style="color: #EAA90B"> Panier </a>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+
                 </div>
             </nav>
         </div>

@@ -24,7 +24,8 @@ $root=[
     'home'=> 'home',
     'categorie'=> 'categorie',
     'products' => 'product',
-    'panier'=>'panier'
+    'panier'=>'panier',
+    'login'=>'login'
 ];
 
 // tableau avec chaque description
@@ -33,6 +34,7 @@ $description=[
     'categorie'=> 'vous trouverez ici toutes nos bieres rangées par categorie',
     'products'=>'le produit dans tout ces états',
     'panier'=>'votre panier avec toutes vos bieres selectionées',
+    'login'=>'pour vous inscrire c\'est par ici'
 ];
 
 
