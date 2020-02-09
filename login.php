@@ -1,8 +1,47 @@
+<?php
+debug($_POST);
+
+
+//new customer
+if (isset($_POST['first_name'])){
+    $post_information=array(
+        'first_name'=> FILTER_SANITIZE_STRING,
+        'last_name'=> FILTER_SANITIZE_STRING,
+        'email'=>FILTER_VALIDATE_EMAIL,
+        'password1'=>FILTER_SANITIZE_STRING,
+        'password2'=>FILTER_SANITIZE_STRING
+    );
+    $customer_information=filter_input_array(INPUT_POST,$post_information);
+    if ($customer_information['password1']==$customer_information['password2']){
+        addnewcustomer($BDD,$customer_information['fist_name'],$customer_information['last_name'],$customer_information['email'],$customer_information['password1']);
+    }
+
+
+    //old customer
+} else{
+    $post_information=array(
+        'email'=>FILTER_VALIDATE_EMAIL,
+        'password'=>FILTER_SANITIZE_STRING
+    );
+    $customer_information=filter_input_array(INPUT_POST,$post_information);
+    findcustomer();
+}
+
+
+
+
+
+?>
+
+
+
+
+
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-6">
             <!-- Default form login -->
-            <form class="text-center border border-light p-5" action="#">
+            <form class="text-center border border-light p-5" method="post">
 
                 <p class="h4 mb-4">Déja client</p>
 
@@ -28,7 +67,7 @@
 
         <div class="col-12 col-md-6">
             <!-- Default form register -->
-            <form class="text-center border border-light p-5" action="#!">
+            <form class="text-center border border-light p-5"  method="post">
 
                 <p class="h4 mb-4">Nouveau Client</p>
 
@@ -50,26 +89,26 @@
                 <!-- E-mail -->
 
                 <label for="email"></label>
-                <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4"
+                <input type="email" id="defaultRegisterFormEmail" name="email" class="form-control mb-4"
                        placeholder="E-mail">
 
 
                 <!-- Password -->
 
                 <label for="password"></label>
-                <input type="password" id="Password" name="password" class="form-control"
+                <input type="password" id="Password" name="password1" class="form-control"
                        placeholder="Password">
 
 
                 <!-- Password -->
 
                 <label for="password"></label>
-                <input type="password" id="Password" name="password" class="form-control"
+                <input type="password" id="Password" name="password2" class="form-control"
                        placeholder="Password">
 
 
                 <!-- Sign up button -->
-                <button class="btn btn-dark my-4 btn-block" type="submit">Sign in</button>
+                <button class="btn btn-dark my-4 btn-block" type="submit">Connection</button>
             </form>
             <!-- Default form register -->
         </div>

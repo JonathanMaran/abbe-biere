@@ -48,7 +48,7 @@ $totalprice = 0;
 
         } else {
         ?>
-        <form class="form" method="post" action="index.php?page=panier">
+        <form class="form" method="post">
             <div class="col-12 text-center"><?= $message ?></div><?php
             foreach ($_SESSION['panier'] as $id => $qte) {
                 $product = view_product($BDD, $id);
