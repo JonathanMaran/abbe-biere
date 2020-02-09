@@ -137,18 +137,25 @@ function addnewcustomer(PDO $bdd,string $fristname,string $lastname,string $emai
     $queryadd->bindParam(':password',$password,PDO::PARAM_STR);
     $queryadd->execute();
     findcustomer($bdd,$email,$password);
+    return $id;
 }
 
 
-function findcustomer(PDO $bdd, string $email, string $password)
+function findcustomer(PDO $bdd, $email, $password)
 {
     $queryfind= $bdd ->prepare('
     SELECT id
     FROM customers
-    WHERE email= :email, password = :password');
+    WHERE email= :email AND password = :password');
     $queryfind->bindParam(':email',$email,PDO::PARAM_STR);
     $queryfind->bindParam(':password',$password,PDO::PARAM_STR);
     $queryfind->execute();
     $array_id=$queryfind->fetch();
-    return $array_id['id'];
+    createidcustomer($array_id['id']);
+}
+
+function createidcustomer($id){
+    if (!isset($_SESSION['idcustomer'])) {
+        $_SESSION['idcustomer'] = $id;
+    }
 }

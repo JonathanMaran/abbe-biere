@@ -1,9 +1,9 @@
 <?php
 debug($_POST);
-
+debug($_SESSION);
 
 //new customer
-if (isset($_POST['first_name'])){
+if (!empty($_POST['first_name'])){
     $post_information=array(
         'first_name'=> FILTER_SANITIZE_STRING,
         'last_name'=> FILTER_SANITIZE_STRING,
@@ -24,7 +24,7 @@ if (isset($_POST['first_name'])){
         'password'=>FILTER_SANITIZE_STRING
     );
     $customer_information=filter_input_array(INPUT_POST,$post_information);
-    findcustomer();
+    findcustomer($BDD,$customer_information['email'],$customer_information['password']);
 }
 
 
