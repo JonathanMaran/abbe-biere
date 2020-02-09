@@ -1,6 +1,5 @@
 <?php
-debug($_POST);
-debug($_SESSION);
+
 
 //new customer
 if (!empty($_POST['first_name'])){
