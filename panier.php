@@ -20,6 +20,7 @@ if (!empty($_POST)) {
     if (!empty($_POST['validate'])){
         $validate=filter_input(INPUT_POST,'validate',FILTER_SANITIZE_STRING);
         if ($validate=='yes'){
+            debug($validate);
             header('Location:abbe-biere/index.php?page=login', TRUE, 302);
             exit;
         }

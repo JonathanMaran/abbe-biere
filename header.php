@@ -48,7 +48,7 @@
                         </li>
                     </ul>
                     <ul class=" navbar-nav navbar-right">
-                        <li class="nav-item">
+                        <li class="nav-item text-center">
                             <a class="nav-link" href="index.php?page=login">Connection</a>
                         </li>
                         <li>
