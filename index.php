@@ -52,127 +52,12 @@ if (isset($root[$page])) {
 }
 
 
-//logique page home
-$message = '';
-
-if (isset($_POST['id'])) {
-    $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-    $message = addtoCart($BDD, $id, 1);
-}
 
 
-//logique page product
-
-//je verifie si $_GET['id'] existe
-if (!empty($_GET)) {
-    if (!empty($_GET['id'])) {
-        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-    } else {
-        $id = find_last_id($BDD);
-    }
 
 
-    //sinon j'afficher par defaut le dernier produit rentre
-} else {
-    $id = find_last_id($BDD);
-}
-
-$view_product = view_product($BDD, $id);
-
-$tva = calcul_tva($view_product['price'], $view_product['vat']);
-
-if (!empty($_POST)) {
-    if (!empty($_POST['qte'])) {
-        $qte = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT);
-        if ($qte < 0) {
-            $qte = 0;
-        }
-        $message = addtocart($BDD, $id, $qte);
-    }
-}
-
-//logique page categorie
-
-//je verifie si le tableau cat existe et je filtre l'entrée
-if (empty($_GET['cat'])) {
-    $categorie = 'Blondes';
-} elseif (isset($_GET['cat'])) {
-    $categorie = filter_input(INPUT_GET, 'cat', FILTER_SANITIZE_STRING);
-}
-
-//logique page panier
-
-if (!empty($_POST)) {
-    if (!empty($_POST['articles'])) {
-        $article = filter_input(INPUT_POST, 'articles', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY);
-        foreach ($article as $id => $qte) {
-            $message = modifycart($BDD, $id, $qte);
-        }
-    }
 
 
-    if (!empty($_POST['delete'])) {
-        $input = array('delete' => FILTER_VALIDATE_INT);
-        $id = filter_input_array(INPUT_POST, $input);
-        $message = modifycart($BDD, $id['delete'], 0);
-    }
 
 
-    if (!empty($_POST['validate'])) {
-        $validate = filter_input(INPUT_POST, 'validate', FILTER_SANITIZE_STRING);
-        if ($validate == 'yes') {
-            if (!empty($_SESSION['idcustomer'])) {
-                //valider la commande
-
-            } else {
-                //il faut vous connecter
-                header('Location: /index.php?page=login', true, 302);
-                exit();
-            }
-
-        }
-    }
-}
-
-//logique page login
-//new customer
-debug($_SESSION);
-debug($_POST);
-if (!empty($_POST['first_name'])) {
-    $post_information = array(
-        'first_name' => FILTER_SANITIZE_STRING,
-        'last_name' => FILTER_SANITIZE_STRING,
-        'email' => FILTER_VALIDATE_EMAIL,
-        'password1' => FILTER_SANITIZE_STRING,
-        'password2' => FILTER_SANITIZE_STRING
-    );
-    $customer_information = filter_input_array(INPUT_POST, $post_information);
-
-    if ($customer_information['password1'] == $customer_information['password2']) {
-        $password=password_hash($customer_information['password1'],PASSWORD_DEFAULT);
-        addnewcustomer($BDD, $customer_information['first_name'], $customer_information['last_name'], $customer_information['email'], $password);
-        if (!empty($_SESSION['cart'])) {
-            header('Location: index.php?page=cart',true,302);
-            exit();
-        } else {
-            header('Location: index.php?page=home',true,302);
-        }
-    }
-
-
-    //old customer
-} else {
-    $post_information = array(
-        'email' => FILTER_VALIDATE_EMAIL,
-        'password' => FILTER_SANITIZE_STRING
-    );
-
-    $customer_information = filter_input_array(INPUT_POST, $post_information);
-    $password=password_hash($post_information['password'],PASSWORD_DEFAULT);
-    findcustomer($BDD, $customer_information['email'], $password);
-}
-
-
-include 'header.php';
 include $include_page . '.php';
-include 'footer.php';

@@ -1,7 +1,45 @@
+<?php
+
+//logique page login
+//new customer
+debug($_SESSION);
+debug($_POST);
+if (!empty($_POST['first_name'])) {
+    $post_information = array(
+        'first_name' => FILTER_SANITIZE_STRING,
+        'last_name' => FILTER_SANITIZE_STRING,
+        'email' => FILTER_VALIDATE_EMAIL,
+        'password1' => FILTER_SANITIZE_STRING,
+        'password2' => FILTER_SANITIZE_STRING
+    );
+    $customer_information = filter_input_array(INPUT_POST, $post_information);
+
+    if ($customer_information['password1'] == $customer_information['password2']) {
+        $password=password_hash($customer_information['password1'],PASSWORD_DEFAULT);
+        addnewcustomer($BDD, $customer_information['first_name'], $customer_information['last_name'], $customer_information['email'], $password);
+        if (!empty($_SESSION['cart'])) {
+            header('Location: index.php?page=cart',true,302);
+            exit();
+        } else {
+            header('Location: index.php?page=home',true,302);
+        }
+    }
 
 
+    //old customer
+} else {
+    $post_information = array(
+        'email' => FILTER_VALIDATE_EMAIL,
+        'password' => FILTER_SANITIZE_STRING
+    );
 
+    $customer_information = filter_input_array(INPUT_POST, $post_information);
+    $password=password_hash($post_information['password'],PASSWORD_DEFAULT);
+    findcustomer($BDD, $customer_information['email'], $password);
+}
 
+include 'header.php'
+?>
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-6">
@@ -83,3 +121,5 @@
 </div>
 
 <!-- Default form login -->
+<?php
+include 'footer.php';

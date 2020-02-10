@@ -1,5 +1,36 @@
 
+//logique page product
 
+<?php
+//je verifie si $_GET['id'] existe
+if (!empty($_GET)) {
+if (!empty($_GET['id'])) {
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+} else {
+$id = find_last_id($BDD);
+}
+
+
+//sinon j'afficher par defaut le dernier produit rentre
+} else {
+$id = find_last_id($BDD);
+}
+
+$view_product = view_product($BDD, $id);
+
+$tva = calcul_tva($view_product['price'], $view_product['vat']);
+
+if (!empty($_POST)) {
+if (!empty($_POST['qte'])) {
+$qte = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT);
+if ($qte < 0) {
+$qte = 0;
+}
+$message = addtocart($BDD, $id, $qte);
+}
+}
+include 'header.php'
+?>
 <!-- main product -->
 <main style="min-height: calc(100vh - 144px - 56px - 64px)">
     <div class="container">
@@ -41,3 +72,4 @@
 
     </div>
 </main>
+<?php include 'footer.php';

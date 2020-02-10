@@ -1,5 +1,13 @@
+<?php
+//logique page home
+$message = '';
 
-
+if (isset($_POST['id'])) {
+$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+$message = addtoCart($BDD, $id, 1);
+}
+include 'header.php';
+?>
 <!-- main home-->
 <main>
     <div class="container">
@@ -35,5 +43,6 @@
         </div>
     </div>
 </main>
-
+<?php
+include 'footer.php';
 

@@ -1,5 +1,14 @@
 <?php
 
+//logique page categorie
+
+//je verifie si le tableau cat existe et je filtre l'entrée
+if (empty($_GET['cat'])) {
+    $categorie = 'Blondes';
+} elseif (isset($_GET['cat'])) {
+    $categorie = filter_input(INPUT_GET, 'cat', FILTER_SANITIZE_STRING);
+}
+ include 'header.php';
 
 if ($categorie == 'Blondes' || $categorie == 'Blanches' || $categorie == 'Brunes' || $categorie == 'Ambrées' || $categorie == 'Rosées' || $categorie == 'Rubis') {
 //je recupere la categorie a afiicher
@@ -60,7 +69,7 @@ if ($categorie == 'Blondes' || $categorie == 'Blanches' || $categorie == 'Brunes
     </main>
     <?php
 }
-
+include 'footer.php';
 
 
 

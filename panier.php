@@ -1,6 +1,41 @@
 <?php
 
+//logique page panier
 
+if (!empty($_POST)) {
+    if (!empty($_POST['articles'])) {
+        $article = filter_input(INPUT_POST, 'articles', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY);
+        foreach ($article as $id => $qte) {
+            $message = modifycart($BDD, $id, $qte);
+        }
+    }
+
+
+    if (!empty($_POST['delete'])) {
+        $input = array('delete' => FILTER_VALIDATE_INT);
+        $id = filter_input_array(INPUT_POST, $input);
+        $message = modifycart($BDD, $id['delete'], 0);
+    }
+
+
+    if (!empty($_POST['validate'])) {
+        $validate = filter_input(INPUT_POST, 'validate', FILTER_SANITIZE_STRING);
+        if ($validate == 'yes') {
+            if (!empty($_SESSION['idcustomer'])) {
+                //valider la commande
+
+            } else {
+                //il faut vous connecter
+                header('Location: /index.php?page=login', true, 302);
+                exit();
+            }
+
+        }
+    }
+}
+
+
+include 'header.php';
 $totalprice = 0;
 ?>
 <main style="min-height: calc(100vh - 144px - 56px - 64px)">
@@ -80,5 +115,7 @@ $totalprice = 0;
         </form>
     </div>
 </main>
+<?php
+include 'footer.php';
 
 
