@@ -79,7 +79,7 @@ if (!empty($_GET)) {
 
 $view_product = view_product($BDD, $id);
 
-$tva = calcul_tva($view_product['price']);
+$tva = calcul_tva($view_product['price'], $view_product['vat']);
 
 if (!empty($_POST)) {
     if (!empty($_POST['qte'])) {
@@ -101,25 +101,26 @@ if (empty($_GET['cat'])) {
 }
 
 //logique page panier
-debug($_POST);
+
 if (!empty($_POST)) {
     if (!empty($_POST['articles'])) {
-//        $qte = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT);
-//        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-        foreach ($_POST['articles'] as $id => $qte) {
-
+        $article = filter_input(INPUT_POST, 'articles', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY);
+        foreach ($article as $id => $qte) {
             $message = modifycart($BDD, $id, $qte);
         }
     }
+
+
     if (!empty($_POST['delete'])) {
-        foreach ($_POST['delete'] as $id => $on) {
-            $message = modifycart($BDD, $id, 0);
-        }
+        $input = array('delete' => FILTER_VALIDATE_INT);
+        $id = filter_input_array(INPUT_POST, $input);
+        $message = modifycart($BDD, $id['delete'], 0);
     }
+
+
     if (!empty($_POST['validate'])) {
         $validate = filter_input(INPUT_POST, 'validate', FILTER_SANITIZE_STRING);
         if ($validate == 'yes') {
-            debug($validate);
             if (!empty($_SESSION['idcustomer'])) {
                 //valider la commande
 
@@ -136,6 +137,7 @@ if (!empty($_POST)) {
 //logique page login
 //new customer
 debug($_SESSION);
+debug($_POST);
 if (!empty($_POST['first_name'])) {
     $post_information = array(
         'first_name' => FILTER_SANITIZE_STRING,
@@ -145,10 +147,15 @@ if (!empty($_POST['first_name'])) {
         'password2' => FILTER_SANITIZE_STRING
     );
     $customer_information = filter_input_array(INPUT_POST, $post_information);
+
     if ($customer_information['password1'] == $customer_information['password2']) {
-        addnewcustomer($BDD, $customer_information['fist_name'], $customer_information['last_name'], $customer_information['email'], $customer_information['password1']);
+        $password=password_hash($customer_information['password1'],PASSWORD_DEFAULT);
+        addnewcustomer($BDD, $customer_information['first_name'], $customer_information['last_name'], $customer_information['email'], $password);
         if (!empty($_SESSION['cart'])) {
-            header('Location:');
+            header('Location: index.php?page=cart',true,302);
+            exit();
+        } else {
+            header('Location: index.php?page=home',true,302);
         }
     }
 
@@ -159,8 +166,10 @@ if (!empty($_POST['first_name'])) {
         'email' => FILTER_VALIDATE_EMAIL,
         'password' => FILTER_SANITIZE_STRING
     );
+
     $customer_information = filter_input_array(INPUT_POST, $post_information);
-    findcustomer($BDD, $customer_information['email'], $customer_information['password']);
+    $password=password_hash($post_information['password'],PASSWORD_DEFAULT);
+    findcustomer($BDD, $customer_information['email'], $password);
 }
 
 

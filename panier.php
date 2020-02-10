@@ -6,7 +6,7 @@ $totalprice = 0;
 <main style="min-height: calc(100vh - 144px - 56px - 64px)">
     <div class="container">
 
-        <?php if (empty($_SESSION)) {
+        <?php if (empty($_SESSION['cart'])) {
             echo '
             <div class="col-12 text-center">
                 <p>Votre panier est vide</p>
@@ -51,11 +51,7 @@ $totalprice = 0;
                                 <input type="number" id="qte" min="0" name="articles[<?= $id ?>]" required minlength="4"
                                        maxlength="8" size="10" value="<?= $qte ?>">
                                 <div class="form-check mb-2 mr-sm-2">
-                                    <input class="form-check-input" type="checkbox" id="delete"
-                                           name="delete[<?= $id ?>]" value="on">
-                                    <label class="form-check-label" for="delete">
-                                        Supprimer
-                                    </label>
+                                    <button type="submit" name="delete" value="<?= $id ?>" class="btn btn-secondary mb-2">Supprimer</button>
                                 </div>
                                 <div>
                                     <h7>prix unitaire : <?= $product['price'] ?> €</h7>

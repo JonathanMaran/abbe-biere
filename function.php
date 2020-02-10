@@ -44,9 +44,9 @@ function view_product(PDO $bdd, int $id)
 }
 
 //calcul tva
-function calcul_tva(float $price): float
+function calcul_tva(float $price,float $tva): float
 {
-    $tva = $price * 0.2;
+    $tva = $price * $tva;
     round($tva, 2);
     return $tva;
 }
@@ -92,8 +92,13 @@ function addtocart(PDO $bdd, int $idProduit, int $qteProduit)
 function modifycart(PDO $bdd, int $idProduit, int $qteProduit)
 {
     if (verifystock($bdd, $idProduit, $qteProduit) == true) {
-        $_SESSION['cart'][$idProduit] = $qteProduit;
-        return $message = 'le stock à été mis à jour';
+        if ($qteProduit==0){
+            unset($_SESSION['cart'][$idProduit]);
+        } else {
+            $_SESSION['cart'][$idProduit] = $qteProduit;
+            return $message = 'le stock à été mis à jour';
+        }
+
     } else {
         return $message = 'la modification à echoué, le stock n\'est pas suffisant';
     }
