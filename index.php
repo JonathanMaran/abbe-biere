@@ -1,4 +1,6 @@
 <?php
+
+//logique page index
 session_start();
 
 include 'function.php';
@@ -11,56 +13,52 @@ error_reporting(E_ALL);
 
 
 //je verifie si le tableau $_GET['page'] existe et je filtre
-if(isset($_GET['page'])){
-    $page=filter_input(INPUT_GET,'page',FILTER_SANITIZE_STRING);
-} elseif(empty($_GET['page'])){
-    $page='home';
-} else{
-    $page='home';
+if (isset($_GET['page'])) {
+    $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
+} elseif (empty($_GET['page'])) {
+    $page = 'home';
+} else {
+    $page = 'home';
 }
 
 // tableau avec chaque route
-$root=[
-    'home'=> 'home',
-    'categorie'=> 'categorie',
+$root = [
+    'home' => 'home',
+    'categorie' => 'categorie',
     'products' => 'product',
-    'panier'=>'panier',
-    'login'=>'login'
+    'panier' => 'panier',
+    'login' => 'login'
 ];
 
 // tableau avec chaque description
-$description=[
-    'home'=> 'ceci est notre super site de ventre de biere',
-    'categorie'=> 'vous trouverez ici toutes nos bieres rangées par categorie',
-    'products'=>'le produit dans tout ces états',
-    'panier'=>'votre panier avec toutes vos bieres selectionées',
-    'login'=>'pour vous inscrire c\'est par ici'
+$description = [
+    'home' => 'ceci est notre super site de ventre de biere',
+    'categorie' => 'vous trouverez ici toutes nos bieres rangées par categorie',
+    'products' => 'le produit dans tout ces états',
+    'panier' => 'votre panier avec toutes vos bieres selectionées',
+    'login' => 'pour vous inscrire c\'est par ici'
 ];
 
 
-
-
-
 //je redirige vers la page
-$include_page=null;
+$include_page = null;
 
-if (isset($root[$page])){
-    $include_page=$root[$page];
-    $include_description=$description[$page];
+if (isset($root[$page])) {
+    $include_page = $root[$page];
+    $include_description = $description[$page];
 } else {
-    $include_page='404';
-    $include_description='cette page n existe pas';
+    $include_page = '404';
+    $include_description = 'cette page n existe pas';
 }
 
 
 //logique page home
-$message='';
+$message = '';
 
-if (isset($_POST['id'])){
-    $id =filter_input(INPUT_POST,'id',FILTER_VALIDATE_INT);
-    $message=addtoCart( $BDD,$id, 1);
+if (isset($_POST['id'])) {
+    $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+    $message = addtoCart($BDD, $id, 1);
 }
-
 
 
 //logique page product
@@ -72,7 +70,6 @@ if (!empty($_GET)) {
     } else {
         $id = find_last_id($BDD);
     }
-
 
 
     //sinon j'afficher par defaut le dernier produit rentre
@@ -90,7 +87,7 @@ if (!empty($_POST)) {
         if ($qte < 0) {
             $qte = 0;
         }
-        $message=addtocart($BDD,$id,$qte);
+        $message = addtocart($BDD, $id, $qte);
     }
 }
 
@@ -104,7 +101,7 @@ if (empty($_GET['cat'])) {
 }
 
 //logique page panier
-
+debug($_POST);
 if (!empty($_POST)) {
     if (!empty($_POST['articles'])) {
 //        $qte = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT);
@@ -119,16 +116,17 @@ if (!empty($_POST)) {
             $message = modifycart($BDD, $id, 0);
         }
     }
-    if (!empty($_POST['validate'])){
-        $validate=filter_input(INPUT_POST,'validate',FILTER_SANITIZE_STRING);
-        if ($validate=='yes'){
-
-            if (!empty($_SESSION['idcustomer']))
-            {
+    if (!empty($_POST['validate'])) {
+        $validate = filter_input(INPUT_POST, 'validate', FILTER_SANITIZE_STRING);
+        if ($validate == 'yes') {
+            debug($validate);
+            if (!empty($_SESSION['idcustomer'])) {
                 //valider la commande
 
-            } else{
+            } else {
                 //il faut vous connecter
+                header('Location: /index.php?page=login', true, 302);
+                exit();
             }
 
         }
@@ -137,32 +135,35 @@ if (!empty($_POST)) {
 
 //logique page login
 //new customer
-if (!empty($_POST['first_name'])){
-    $post_information=array(
-        'first_name'=> FILTER_SANITIZE_STRING,
-        'last_name'=> FILTER_SANITIZE_STRING,
-        'email'=>FILTER_VALIDATE_EMAIL,
-        'password1'=>FILTER_SANITIZE_STRING,
-        'password2'=>FILTER_SANITIZE_STRING
+debug($_SESSION);
+if (!empty($_POST['first_name'])) {
+    $post_information = array(
+        'first_name' => FILTER_SANITIZE_STRING,
+        'last_name' => FILTER_SANITIZE_STRING,
+        'email' => FILTER_VALIDATE_EMAIL,
+        'password1' => FILTER_SANITIZE_STRING,
+        'password2' => FILTER_SANITIZE_STRING
     );
-    $customer_information=filter_input_array(INPUT_POST,$post_information);
-    if ($customer_information['password1']==$customer_information['password2']){
-        addnewcustomer($BDD,$customer_information['fist_name'],$customer_information['last_name'],$customer_information['email'],$customer_information['password1']);
+    $customer_information = filter_input_array(INPUT_POST, $post_information);
+    if ($customer_information['password1'] == $customer_information['password2']) {
+        addnewcustomer($BDD, $customer_information['fist_name'], $customer_information['last_name'], $customer_information['email'], $customer_information['password1']);
+        if (!empty($_SESSION['cart'])) {
+            header('Location:');
+        }
     }
 
 
     //old customer
-} else{
-    $post_information=array(
-        'email'=>FILTER_VALIDATE_EMAIL,
-        'password'=>FILTER_SANITIZE_STRING
+} else {
+    $post_information = array(
+        'email' => FILTER_VALIDATE_EMAIL,
+        'password' => FILTER_SANITIZE_STRING
     );
-    $customer_information=filter_input_array(INPUT_POST,$post_information);
-    findcustomer($BDD,$customer_information['email'],$customer_information['password']);
+    $customer_information = filter_input_array(INPUT_POST, $post_information);
+    findcustomer($BDD, $customer_information['email'], $customer_information['password']);
 }
 
 
-
 include 'header.php';
-include $include_page.'.php';
+include $include_page . '.php';
 include 'footer.php';
