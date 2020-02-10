@@ -97,8 +97,23 @@ function infosproducts(PDO $bdd, int $id)
 function modifycart(array $quantites)
 {
     foreach ($quantites as $id => $quantite) {
-        $_SESSION['panier'][$id] = $quantite;
+        if ($quantite == 0) {
+            unset($_SESSION['panier'][$id]);
+        } else {
+            $_SESSION['panier'][$id] = (int)$quantite;
+        }
+
 
     }
+
+
+}
+
+function deleteproduct(array $quantites)
+{
+    foreach ($quantites as $id => $quantite) {
+        unset($_SESSION['panier'][$id]);
+    }
+
 
 }
