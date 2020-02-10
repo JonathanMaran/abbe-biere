@@ -1,7 +1,7 @@
 <?php
 
 
-$totalprice = null;
+$totalprice = 0;
 
 // fonction pour Modifier la quantité de produits dans mon panier
 if (isset($_POST['modification'])) {
@@ -65,6 +65,7 @@ if (isset($_SESSION['panier'])) {
                             <button type="submit" name="modification" class="btn btn-secondary mb-2">Modifier la quantité</button>
                         </div>
                         <div class="col-6 text-center">
+                            <button type="submit" name="validation" class="btn btn-secondary mb-2">Valider le panier</button>
                             <p><strong>PRIX TOTAL: ' . $totalprice . ' </strong></p>
                         </div>
                     </div>
@@ -77,7 +78,6 @@ if (isset($_SESSION['panier'])) {
     echo '<main>PAS DE PANIER ACTUELLEMENT</main></div>';
 
 }
-
 
 
 /*debug($_POST);

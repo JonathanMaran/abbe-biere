@@ -1,12 +1,12 @@
 <?php
 
 
-if (isset($_POST['id'])){
+if (isset($_POST['id'])) {
     $id = $_POST['id'];
-    addtoCart( $id, 1);
+    addtoCart($id, 1);
 }
 
-debug($_SESSION);
+/*debug($_SESSION);*/
 ?>
 
 <!-- main home-->

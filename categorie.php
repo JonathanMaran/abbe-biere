@@ -1,16 +1,16 @@
 <?php
 
 //je verifie si le tableau categorie existe et je filtre l'entrée
-if (isset($_GET['categorie'])){
-    if(!empty($_GET['categorie'])){
-        $categorie=filter_input(INPUT_GET,'categorie',FILTER_SANITIZE_STRING);
+if (isset($_GET['categorie'])) {
+    if (!empty($_GET['categorie'])) {
+        $categorie = filter_input(INPUT_GET, 'categorie', FILTER_SANITIZE_STRING);
     }
-} else{
-    $categorie='blonde';
+} else {
+    $categorie = 'blonde';
 }
 
 //je recupere la categorie a afiicher
-$categories=categorieview($BDD,$categorie);
+$categories = categorieview($BDD, $categorie);
 debug($_SESSION);
 ?>
 <main>
@@ -20,11 +20,11 @@ debug($_SESSION);
             <!-- titre -->
             <h2>Les derniers produits</h2>
         </div>
-<div class="row col-12 ">
-        <!-- affichage des derniers produits -->
-        <?php
-        foreach ($categories as $categorie) {
-            echo '       
+        <div class="row col-12 ">
+            <!-- affichage des derniers produits -->
+            <?php
+            foreach ($categories as $categorie) {
+                echo '       
                 <div class="card col-3 text-center shadow p-3 mb-5 " style="width: 16.5rem;">
                     <img src="/photos/' . $categorie['photo_link'] . '.jpeg" class="card-img-top" alt="' . $categorie['photo_link'] . '">
                     <div class="card-body">
@@ -36,7 +36,7 @@ debug($_SESSION);
                 </div>';
 
 
-        } ?>
-</div>
+            } ?>
+        </div>
     </div>
 </main>

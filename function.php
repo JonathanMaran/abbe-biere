@@ -17,18 +17,6 @@ LIMIT 10 ');
     return $donnes;
 }
 
-//fonction pour recuperer le dernier id
-function find_last_id(PDO $BDD)
-{
-    $query_last_id = $BDD->prepare('
-    SELECT id
-    FROM products
-    ORDER BY id DESC 
-    LIMIT 1');
-    $query_last_id->execute();
-    $answer = $query_last_id->fetch();
-    return $answer['id'];
-}
 
 //produit a afficher
 function view_product(PDO $bdd, int $id)
@@ -43,10 +31,11 @@ function view_product(PDO $bdd, int $id)
     return $answer;
 }
 
-//calcul tva
-function calcul_tva(float $price): float
+
+// fonction calcul TVA
+function calcul_tva(float $price, $vat)
 {
-    $tva = $price * 0.2;
+    $tva = $price * ($vat/100);
     round($tva, 2);
     return $tva;
 }
@@ -54,8 +43,7 @@ function calcul_tva(float $price): float
 //categories a afficher
 function categorieview(PDO $BDD, string $categorie)
 {
-    $querycategorieview = $BDD->prepare('
-    SELECT *
+    $querycategorieview = $BDD->prepare('SELECT *
     FROM products
     INNER JOIN categories ON categories.id=category_id
     WHERE categories.name= :categorie');
@@ -85,28 +73,22 @@ function addtocart(int $idProduit, int $qteProduit)
 
 function infosproducts(PDO $bdd, int $id)
 {
-    $query_view_product = $bdd->prepare('
-    SELECT * 
-    FROM products
-    WHERE id=' . $id);
+    $query_view_product = $bdd->prepare('SELECT *  FROM products WHERE id=:id');
+    $query_view_product->bindParam(':id', $id, PDO::PARAM_INT);
     $query_view_product->execute();
-    $answer = $query_view_product->fetch();
-    return $answer;
+
+    return $query_view_product->fetch();
 }
 
 function modifycart(array $quantites)
 {
     foreach ($quantites as $id => $quantite) {
-        if ($quantite == 0) {
+        if ($quantite <= 0) {
             unset($_SESSION['panier'][$id]);
         } else {
             $_SESSION['panier'][$id] = (int)$quantite;
         }
-
-
     }
-
-
 }
 
 function deleteproduct(array $quantites)
@@ -114,6 +96,4 @@ function deleteproduct(array $quantites)
     foreach ($quantites as $id => $quantite) {
         unset($_SESSION['panier'][$id]);
     }
-
-
 }

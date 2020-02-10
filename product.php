@@ -11,16 +11,20 @@ if (!empty($_GET)) {
         $id = find_last_id($BDD);
     }
 
-  /*  debug($_SESSION);*/
+    /*  debug($_SESSION);*/
 
     //sinon j'afficher par defaut le dernier produit rentre
 } else {
-    $id = find_last_id($BDD);
+    echo 'error404';
 }
 
 $view_product = view_product($BDD, $id);
 
-$tva = calcul_tva($view_product['price']);
+if(!empty($_GET['id'])){
+    $id = $_GET['id'];
+    $tva = calcul_tva($view_product['price'], $view_product['vat']);
+}
+
 
 if (!empty($_POST)) {
     if (!empty($_POST['qte'])) {
@@ -28,7 +32,7 @@ if (!empty($_POST)) {
         if ($qte < 0) {
             $qte = 0;
         }
-        addtocart($id,$qte);
+        addtocart($id, $qte);
     }
 }
 
