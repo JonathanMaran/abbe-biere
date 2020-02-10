@@ -1,37 +1,5 @@
 <?php
-$message = '';
 
-
-
-if (!empty($_POST)) {
-    if (!empty($_POST['articles'])) {
-//        $qte = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT);
-//        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-        foreach ($_POST['articles'] as $id => $qte) {
-
-            $message = modifycart($BDD, $id, $qte);
-        }
-    }
-    if (!empty($_POST['delete'])) {
-        foreach ($_POST['delete'] as $id => $on) {
-            $message = modifycart($BDD, $id, 0);
-        }
-    }
-    if (!empty($_POST['validate'])){
-        $validate=filter_input(INPUT_POST,'validate',FILTER_SANITIZE_STRING);
-        if ($validate=='yes'){
-
-            if (!empty($_SESSION['idcustomer']))
-            {
-                //valider la commande
-
-            } else{
-                //il faut vous connecter
-            }
-
-        }
-    }
-}
 
 $totalprice = 0;
 ?>

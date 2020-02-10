@@ -1,13 +1,4 @@
-<?php
-$message='';
 
-if (isset($_POST['id'])){
-    $id = $_POST['id'];
-    $message=addtoCart( $BDD,$id, 1);
-}
-
-
-?>
 
 <!-- main home-->
 <main>

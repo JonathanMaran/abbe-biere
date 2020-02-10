@@ -1,37 +1,3 @@
-<?php
-
-
-//new customer
-if (!empty($_POST['first_name'])){
-    $post_information=array(
-        'first_name'=> FILTER_SANITIZE_STRING,
-        'last_name'=> FILTER_SANITIZE_STRING,
-        'email'=>FILTER_VALIDATE_EMAIL,
-        'password1'=>FILTER_SANITIZE_STRING,
-        'password2'=>FILTER_SANITIZE_STRING
-    );
-    $customer_information=filter_input_array(INPUT_POST,$post_information);
-    if ($customer_information['password1']==$customer_information['password2']){
-        addnewcustomer($BDD,$customer_information['fist_name'],$customer_information['last_name'],$customer_information['email'],$customer_information['password1']);
-    }
-
-
-    //old customer
-} else{
-    $post_information=array(
-        'email'=>FILTER_VALIDATE_EMAIL,
-        'password'=>FILTER_SANITIZE_STRING
-    );
-    $customer_information=filter_input_array(INPUT_POST,$post_information);
-    findcustomer($BDD,$customer_information['email'],$customer_information['password']);
-}
-
-
-
-
-
-?>
-
 
 
 

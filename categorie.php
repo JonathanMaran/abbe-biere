@@ -1,17 +1,4 @@
 <?php
-$message='';
-
-if (isset($_POST['id'])){
-    $id = $_POST['id'];
-    $message=addtoCart($BDD, $id, 1);
-}
-
-//je verifie si le tableau cat existe et je filtre l'entrée
-if (empty($_GET['cat'])) {
-    $categorie = 'Blondes';
-} elseif (isset($_GET['cat'])) {
-    $categorie = filter_input(INPUT_GET, 'cat', FILTER_SANITIZE_STRING);
-}
 
 
 if ($categorie == 'Blondes' || $categorie == 'Blanches' || $categorie == 'Brunes' || $categorie == 'Ambrées' || $categorie == 'Rosées' || $categorie == 'Rubis') {
