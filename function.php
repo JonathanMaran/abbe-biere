@@ -44,7 +44,7 @@ function view_product(PDO $bdd, int $id)
 }
 
 //calcul tva
-function calcul_tva(float $price,float $tva): float
+function calcul_tva(float $price, float $tva): float
 {
     $tva = $price * $tva;
     round($tva, 2);
@@ -82,9 +82,9 @@ function addtocart(PDO $bdd, int $idProduit, int $qteProduit)
         } else {
             $_SESSION['cart'][$idProduit] = $qteProduit;
         }
-        $message='votre choix à bien été ajouté au panier';
-    } else{
-        $message='le stock n\'est pas suffisant';
+        $message = 'votre choix à bien été ajouté au panier';
+    } else {
+        $message = 'le stock n\'est pas suffisant';
     }
     return $message;
 }
@@ -92,7 +92,7 @@ function addtocart(PDO $bdd, int $idProduit, int $qteProduit)
 function modifycart(PDO $bdd, int $idProduit, int $qteProduit)
 {
     if (verifystock($bdd, $idProduit, $qteProduit) == true) {
-        if ($qteProduit==0){
+        if ($qteProduit == 0) {
             unset($_SESSION['cart'][$idProduit]);
         } else {
             $_SESSION['cart'][$idProduit] = $qteProduit;
@@ -131,36 +131,53 @@ function verifystock(PDO $bdd, int $idproduct, int $quantity): bool
 
 }
 
-function addnewcustomer(PDO $bdd,string $fristname,string $lastname,string $email,string $password)
+function addnewcustomer(PDO $bdd, string $fristname, string $lastname, string $email, string $password)
 {
-    $queryadd=$bdd->prepare('
+    $queryadd = $bdd->prepare('
     INSERT INTO `customers` (`id`, `firstname`, `lastname`, `email`, `password`) 
     VALUES (NULL, :firstname, :lastname, :email, :password);');
-    $queryadd->bindParam(':firstname',$fristname,PDO::PARAM_STR);
-    $queryadd->bindParam(':lastname',$lastname,PDO::PARAM_STR);
-    $queryadd->bindParam(':email',$email,PDO::PARAM_STR);
-    $queryadd->bindParam(':password',$password,PDO::PARAM_STR);
+    $queryadd->bindParam(':firstname', $fristname, PDO::PARAM_STR);
+    $queryadd->bindParam(':lastname', $lastname, PDO::PARAM_STR);
+    $queryadd->bindParam(':email', $email, PDO::PARAM_STR);
+    $queryadd->bindParam(':password', $password, PDO::PARAM_STR);
     $queryadd->execute();
-    findcustomer($bdd,$email,$password);
+    findcustomer($bdd, $email, $password);
     return $id;
 }
 
 
-function findcustomer(PDO $bdd, $email, $password)
+function findcustomer(PDO $bdd, string $email, string $password)
 {
-    $queryfind= $bdd ->prepare('
+    $queryfind = $bdd->prepare('
     SELECT id
     FROM customers
     WHERE email= :email AND password = :password');
-    $queryfind->bindParam(':email',$email,PDO::PARAM_STR);
-    $queryfind->bindParam(':password',$password,PDO::PARAM_STR);
+    $queryfind->bindParam(':email', $email, PDO::PARAM_STR);
+    $queryfind->bindParam(':password', $password, PDO::PARAM_STR);
     $queryfind->execute();
-    $array_id=$queryfind->fetch();
+    $array_id = $queryfind->fetch();
     createidcustomer($array_id['id']);
 }
 
-function createidcustomer($id){
+function createidcustomer($id)
+{
     if (!isset($_SESSION['idcustomer'])) {
         $_SESSION['idcustomer'] = $id;
     }
+}
+
+function ordervalidate(PDO $bdd, int $id,array $cart)
+{
+    $queryorder = $bdd->prepare('
+    INSERT INTO `orders` (`created_at`, `delivered_at`, `customer_id`)
+    VALUES (date(now()), date(now()), :idcustomer);');
+    $queryorder->bindParam(':idcustomer',$id,PDO::PARAM_INT);
+    $queryorder->execute();
+    debug($cart);
+    addorderline($bdd,$cart);
+}
+
+function addorderline($bdd,$cart)
+{
+
 }

@@ -1,6 +1,9 @@
 <?php
 
 //logique page panier
+$message='';
+debug($_POST);
+debug($_SESSION);
 
 if (!empty($_POST)) {
     if (!empty($_POST['articles'])) {
@@ -23,6 +26,7 @@ if (!empty($_POST)) {
         if ($validate == 'yes') {
             if (!empty($_SESSION['idcustomer'])) {
                 //valider la commande
+                ordervalidate($BDD,$_SESSION['idcustomer'],$_SESSION['cart']);
 
             } else {
                 //il faut vous connecter

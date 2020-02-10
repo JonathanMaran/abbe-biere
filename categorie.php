@@ -1,5 +1,6 @@
 <?php
 
+$message='';
 //logique page categorie
 
 //je verifie si le tableau cat existe et je filtre l'entrée

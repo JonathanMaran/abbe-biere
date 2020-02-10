@@ -55,9 +55,4 @@ if (isset($root[$page])) {
 
 
 
-
-
-
-
-
 include $include_page . '.php';

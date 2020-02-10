@@ -18,7 +18,7 @@ if (!empty($_POST['first_name'])) {
         $password=password_hash($customer_information['password1'],PASSWORD_DEFAULT);
         addnewcustomer($BDD, $customer_information['first_name'], $customer_information['last_name'], $customer_information['email'], $password);
         if (!empty($_SESSION['cart'])) {
-            header('Location: index.php?page=cart',true,302);
+            header('Location: index.php?page=panier',true,302);
             exit();
         } else {
             header('Location: index.php?page=home',true,302);
