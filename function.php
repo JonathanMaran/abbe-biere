@@ -86,11 +86,11 @@ function addtocart(int $idProduit, int $qteProduit)
 function editCart(PDO $BDD, array $qtyProduit)
 {
     foreach ($qtyProduit as $id => $quantite) {
-        $stockbdd = view_product($BDD, $id);
         if ($quantite <= 0) {
             unset($_SESSION['panier'][$id]);
-        } elseif ($stockbdd['stock'] >= $quantite) {
-            $_SESSION['panier'][$id] = (int)$quantite;
+            //verify stock
+        } else {
+            verifStock($BDD, $id, $quantite);
         }
     }
 }
@@ -105,6 +105,16 @@ function deleteCart(int $idProduct)
         unset($_SESSION['panier']);
     }
 }
-function verifStock(PDO $BDD, $id){
+function getStock (PDO $BDD, $id): int
+{
+    $stockbdd = view_product($BDD, $id);
+    return $stockbdd['stock'];
+}
 
+function verifStock(PDO $BDD, $id, $quantite){
+
+    $stockbdd = getStock($BDD, $id);
+    if ($stockbdd>= $quantite) {
+        $_SESSION['panier'][$id] = (int)$quantite;
+    }
 }
