@@ -31,7 +31,7 @@ function find_last_id(PDO $BDD)
 }
 
 //produit a afficher
-function view_product(PDO $bdd, int $id)
+function view_product(PDO $bdd, int $id): array
 {
     $query_view_product = $bdd->prepare('
     SELECT * 
@@ -83,9 +83,25 @@ function addtocart(int $idProduit, int $qteProduit)
     }
 }
 
-function editCart(int $idProduct, int $qtyProduit)
+function editCart(array $qtyProduit)
 {
-    foreach ($_POST['panier'] as $idProduct => $qtyProduit) {
+    foreach ($qtyProduit as $id => $quantite) {
+        if ($quantite <= 0) {
+            unset($_SESSION['panier'][$id]);
+        } else {
+            $_SESSION['panier'][$id] = (int) $quantite;
+        }
 
+    }
+}
+
+function deleteCart(int $idProduct)
+{
+    if (isset($_SESSION['panier'][$idProduct])){
+        unset($_SESSION['panier'][$idProduct]);
+    }
+
+    if(empty($_SESSION['panier'])){
+        unset($_SESSION['panier']);
     }
 }
