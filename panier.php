@@ -4,7 +4,7 @@ $totalorder = null;
 
 if (isset($_POST['modifier'])) {
     $qte = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
-    editCart($qte);
+    editCart($BDD, $qte);
 }
 if (isset($_POST['supprimer'])) {
     $deleteid = filter_input(INPUT_POST, 'supprimer', FILTER_VALIDATE_INT, array("options" => array(

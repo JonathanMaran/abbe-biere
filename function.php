@@ -83,25 +83,28 @@ function addtocart(int $idProduit, int $qteProduit)
     }
 }
 
-function editCart(array $qtyProduit)
+function editCart(PDO $BDD, array $qtyProduit)
 {
     foreach ($qtyProduit as $id => $quantite) {
+        $stockbdd = view_product($BDD, $id);
         if ($quantite <= 0) {
             unset($_SESSION['panier'][$id]);
-        } else {
-            $_SESSION['panier'][$id] = (int) $quantite;
+        } elseif ($stockbdd['stock'] >= $quantite) {
+            $_SESSION['panier'][$id] = (int)$quantite;
         }
-
     }
 }
 
 function deleteCart(int $idProduct)
 {
-    if (isset($_SESSION['panier'][$idProduct])){
+    if (isset($_SESSION['panier'][$idProduct])) {
         unset($_SESSION['panier'][$idProduct]);
     }
 
-    if(empty($_SESSION['panier'])){
+    if (empty($_SESSION['panier'])) {
         unset($_SESSION['panier']);
     }
+}
+function verifStock(PDO $BDD, $id){
+
 }
