@@ -1,11 +1,13 @@
 <?php
 //init variables
 $totalorder = null;
+$message = null;
 
 if (isset($_POST['modifier'])) {
-    $qte = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
-    editCart($BDD, $qte);
+    $qtyenter = filter_input(INPUT_POST, 'qte', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
+    editCart($BDD, $qtyenter);
 }
+
 if (isset($_POST['supprimer'])) {
     $deleteid = filter_input(INPUT_POST, 'supprimer', FILTER_VALIDATE_INT, array("options" => array(
         "default" => 0,
@@ -64,16 +66,17 @@ if (!isset($_SESSION['panier'])) {
                         </div>
                         <div class="col-12">
                             Stock Restant : <?= $view_product_cart['stock'] ?>
+                            <?= $message ?>
                         </div>
                     </div>
                 <?php }
                 ?>
                 <?php
-                if (count($_SESSION['panier']) == 0) {
+                /*if (count($_SESSION['panier']) == 0) {
                     echo 'Panier vide';
                 }
 
-                ?>
+                */?>
 
                 <div class="col-12">
                     <button type="submit" name="modifier" class="btn btn-secondary mb-2">Modifier</button>
