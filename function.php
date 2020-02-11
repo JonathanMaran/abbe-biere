@@ -243,5 +243,9 @@ function createorderline(PDO $bdd,int $productid,int $orderid,int $quantity,floa
     $querycreateorderline->bindParam(':price',$price,PDO::PARAM_STR);
     $querycreateorderline->bindParam(':vat',$vat,PDO::PARAM_STR);
     $querycreateorderline->execute();
+}
 
+function deletecart()
+{
+    unset($_SESSION['cart']);
 }

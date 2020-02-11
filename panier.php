@@ -26,7 +26,10 @@ if (!empty($_POST)) {
         if ($validate == 'yes') {
             if (!empty($_SESSION['idcustomer'])) {
                 //valider la commande
-                ordervalidate($BDD,$_SESSION['idcustomer'],$_SESSION['cart']);
+                header('Location: /index.php?page=paiement',true,302);
+                exit();
+
+
 
             } else {
                 //il faut vous connecter
