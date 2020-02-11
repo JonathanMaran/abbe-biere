@@ -2,8 +2,7 @@
 
 //logique page panier
 $message='';
-debug($_POST);
-debug($_SESSION);
+
 
 if (!empty($_POST)) {
     if (!empty($_POST['articles'])) {

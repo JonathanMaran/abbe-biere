@@ -142,7 +142,6 @@ function addnewcustomer(PDO $bdd, string $fristname, string $lastname, string $e
     $queryadd->bindParam(':password', $password, PDO::PARAM_STR);
     $queryadd->execute();
     findcustomer($bdd, $email, $password);
-    return $id;
 }
 
 
@@ -164,6 +163,7 @@ function createidcustomer($id)
     if (!isset($_SESSION['idcustomer'])) {
         $_SESSION['idcustomer'] = $id;
     }
+    return $id;
 }
 
 function ordervalidate(PDO $bdd, $idcustomer,array $cart)

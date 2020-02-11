@@ -2,6 +2,8 @@
 //logique page product
 
 <?php
+$message='';
+
 //je verifie si $_GET['id'] existe
 if (!empty($_GET)) {
 if (!empty($_GET['id'])) {

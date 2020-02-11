@@ -4,18 +4,19 @@
 //new customer
 debug($_SESSION);
 debug($_POST);
-if (!empty($_POST)) {
-    if (!empty($_POST['first_name'])) {
-        $post_information = array(
-            'first_name' => FILTER_SANITIZE_STRING,
-            'last_name' => FILTER_SANITIZE_STRING,
-            'email' => FILTER_VALIDATE_EMAIL,
-            'password1' => FILTER_SANITIZE_STRING,
-            'password2' => FILTER_SANITIZE_STRING
-        );
-        $customer_information = filter_input_array(INPUT_POST, $post_information);
 
-        if ($customer_information['password1'] == $customer_information['password2']) {
+//nouveau client
+if (!empty($_POST)) {
+    if (isset($_POST['new_client']) and ($_POST['new_client']) === 'yes') {
+        if (!empty($_POST['first_name'] and $_POST['last_name'] and $_POST['email'] and $_POST['password1'] and $_POST['password2']) and $_POST['password1'] === $_POST['password2']) {
+            $post_information = array(
+                'first_name' => FILTER_SANITIZE_STRING,
+                'last_name' => FILTER_SANITIZE_STRING,
+                'email' => FILTER_VALIDATE_EMAIL,
+                'password1' => FILTER_SANITIZE_STRING,
+                'password2' => FILTER_SANITIZE_STRING
+            );
+            $customer_information = filter_input_array(INPUT_POST, $post_information);
             $password = password_hash($customer_information['password1'], PASSWORD_DEFAULT);
             addnewcustomer($BDD, $customer_information['first_name'], $customer_information['last_name'], $customer_information['email'], $password);
             if (!empty($_SESSION['cart'])) {
@@ -24,19 +25,21 @@ if (!empty($_POST)) {
             } else {
                 header('Location: index.php?page=home', true, 302);
             }
+        } else {
+            $message = 'une erreur est survenue lors de l\'enregistrement, Merci de recommencer';
         }
-
-
-        //old customer
-    } else {
-        $post_information = array(
-            'email' => FILTER_VALIDATE_EMAIL,
-            'password' => FILTER_SANITIZE_STRING
-        );
-
-        $customer_information = filter_input_array(INPUT_POST, $post_information);
-        $password = password_hash($post_information['password'], PASSWORD_DEFAULT);
-        findcustomer($BDD, $customer_information['email'], $password);
+        //ancien client
+    } elseif (!empty($_POST['identify']) === 'yes') {
+        if (!empty($_POST['email'] and $_POST['password'])) {
+            $post_information = array(
+                'email' => FILTER_VALIDATE_EMAIL,
+                'password' => FILTER_SANITIZE_STRING,
+            );
+            $customer_information = filter_input_array(INPUT_POST, $post_information);
+            $password = password_hash($customer_information['password'], PASSWORD_DEFAULT);
+            findcustomer($BDD, $customer_information['email'], $password);
+            debug;
+        }
     }
 }
 include 'header.php'
@@ -64,7 +67,8 @@ include 'header.php'
                     </div>
 
                     <!-- Sign in button -->
-                    <button class="btn btn-dark btn-block my-4" type="submit">Connection</button>
+                    <button class="btn btn-dark btn-block my-4" type="submit" name="identify" value="yes">Connexion
+                    </button>
                 </form>
             </div>
 
@@ -112,7 +116,8 @@ include 'header.php'
 
 
                     <!-- Sign up button -->
-                    <button class="btn btn-dark my-4 btn-block" type="submit">Connection</button>
+                    <button class="btn btn-dark my-4 btn-block" name="new_client" value="yes" type="submit">Connexion
+                    </button>
                 </form>
                 <!-- Default form register -->
             </div>
