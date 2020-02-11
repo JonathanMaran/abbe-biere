@@ -166,18 +166,82 @@ function createidcustomer($id)
     }
 }
 
-function ordervalidate(PDO $bdd, int $id,array $cart)
+function ordervalidate(PDO $bdd, $idcustomer,array $cart)
 {
+    foreach ($cart as $id => $qty) {
+        verifystock($bdd, $id, $qty);
+    }
     $queryorder = $bdd->prepare('
     INSERT INTO `orders` (`created_at`, `delivered_at`, `customer_id`)
     VALUES (date(now()), date(now()), :idcustomer);');
-    $queryorder->bindParam(':idcustomer',$id,PDO::PARAM_INT);
+    $queryorder->bindParam(':idcustomer', $idcustomer, PDO::PARAM_INT);
     $queryorder->execute();
-    debug($cart);
-    addorderline($bdd,$cart);
+    $idorder=$bdd->lastInsertId();
+    addorderline($bdd, $cart,$idorder);
 }
 
-function addorderline($bdd,$cart)
+
+function addorderline(PDO $bdd,array $cart,int $idorder)
 {
+    foreach ($cart as $id => $qty) {
+        $product = selectproduct($bdd, $id);
+        modifystock($bdd,$product);
+        createorderline($bdd,$id,$idorder,$qty,$product['price'],$product['vat']);
+    }
+}
+
+
+function selectproduct(PDO $bdd, int $id)
+{
+    $queryselect = $bdd->prepare('
+    SELECT *
+    FROM products
+    WHERE id = :id');
+    $queryselect->bindParam(':id', $id, PDO::PARAM_INT);
+    $queryselect->execute();
+    $answer = $queryselect->fetch();
+    return $answer;
+}
+
+function modifystock(PDO $bdd, array $product)
+{
+    $querymodify = $bdd->prepare('
+    UPDATE `products` SET
+    `id` = :id,
+    `name` = :name,
+    `description` = :description,
+    `price` = :price,
+    `volume` = :volume,
+    `vat` = :vat,
+    `stock` = :stock,
+    `weight` = :weight,
+    `category_id` = :category_id,
+    `photo_link` = :photo_link,
+    WHERE `id` = :id ;
+    ');
+    $querymodify->bindParam(':name', $product['name'], PDO::PARAM_STR);
+    $querymodify->bindParam(':description', $product['description'], PDO::PARAM_STR);
+    $querymodify->bindParam(':price', $product['price'], PDO::PARAM_STR);
+    $querymodify->bindParam(':volume', $product['volume'], PDO::PARAM_STR);
+    $querymodify->bindParam(':vat', $product['vat'], PDO::PARAM_STR);
+    $querymodify->bindParam('stock', $product['stock'], PDO::PARAM_INT);
+    $querymodify->bindParam('weight', $product['weight'], PDO::PARAM_STR);
+    $querymodify->bindParam(':category_id', $product['category_id'], PDO::PARAM_INT);
+    $querymodify->bindParam(':photo_link', $product['photo_link'], PDO::PARAM_STR);
+    $querymodify->bindParam(':id', $product['id'], PDO::PARAM_INT);
+    $querymodify->execute();
+}
+
+function createorderline(PDO $bdd,int $productid,int $orderid,int $quantity,float $price,float $vat)
+{
+    $querycreateorderline=$bdd->prepare('
+    INSERT INTO `orderline` (`product_id`, `order_id`, `quantity`, `price`, `vat`)
+    VALUES (:productid, :orderid, :quantity, :price, :vat);');
+    $querycreateorderline->bindParam(':productid',$productid,PDO::PARAM_INT);
+    $querycreateorderline->bindParam(':orderid',$orderid,PDO::PARAM_INT);
+    $querycreateorderline->bindParam(':quantity',$quantity,PDO::PARAM_INT);
+    $querycreateorderline->bindParam(':price',$price,PDO::PARAM_STR);
+    $querycreateorderline->bindParam(':vat',$vat,PDO::PARAM_STR);
+    $querycreateorderline->execute();
 
 }
