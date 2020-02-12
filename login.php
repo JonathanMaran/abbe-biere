@@ -38,7 +38,6 @@ if (!empty($_POST)) {
             $customer_information = filter_input_array(INPUT_POST, $post_information);
             $password = password_hash($customer_information['password'], PASSWORD_DEFAULT);
             findcustomer($BDD, $customer_information['email'], $password);
-            debug;
         }
     }
 }
